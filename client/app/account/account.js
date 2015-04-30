@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('idiomologyApp')
+angular.module('familyThiefApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('login', {

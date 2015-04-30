@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('idiomologyApp')
+angular.module('familyThiefApp')
   .controller('LoginCtrl', function ($scope, Auth, $location) {
     $scope.user = {};
     $scope.errors = {};
