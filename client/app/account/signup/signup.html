@@ -54,23 +54,6 @@
           </p>
         </div>
 
-        <div class="form-group" ng-class="{ 'has-success': form.language.$valid && submitted,
-                                            'has-error': form.language.$invalid && submitted }">
-          <label>Your Native Language</label>
-
-          <select data-ng-model="user.nativeLanguage" name="language" data-ng-options="a.language for a in languages"
-            required mongoose-error>
-            <option value=''>Choose Language</option>                
-          </select>
-            
-          <p class="help-block"
-             ng-show="(form.language.$error.required) && submitted">
-            You must choose your native language.
-          </p>
-          <p class="help-block" ng-show="form.language.$error.mongoose">
-            {{ errors.language }}
-          </p>
-        </div>
 
         <div>
           <button class="btn btn-inverse btn-lg btn-login" type="submit">
