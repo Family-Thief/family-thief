@@ -13,7 +13,7 @@ var rl = readline.createInterface({
 var getPass = function(username) {
   rl.question("What would you like the password to be?", function(pass) {
     User.create({username: username}).then(function(newUser){
-      newUser.setPassword(pass);
+      newUser.encryptPassword(pass);
       console.log("closing in 5 seconds");
       setTimeout(function(){
         process.exit(0);

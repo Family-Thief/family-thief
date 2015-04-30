@@ -24,47 +24,15 @@ exports.index = function(req, res) {
  * Creates a new user
  */
 exports.create = function (req, res, next) {
-  console.log(req.body);
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  newUser.save(function(err, user) {
-    if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
-  });
-};
-
-exports.addIdiom = function(req, res) {
-  var userId = req.body.userId;
-  var newIdiom = req.body.idiom;
-  console.log(userId, newIdiom);
-
-  User.findById(userId, function (err, user) {
-    user.idioms.push(newIdiom);
-    user.save(function(err, user) {
-      console.log(user);
+  User.create({username: req.body.username, email: req.body.email})
+    .then(function(newUser) {
+      newUser.encryptPassword(req.body.password, function(newUser) {
+        var token = jwt.sign({_id: newUser.id}, config.secrets.session, { expiresInMinutes: 60*5 });
+      res.json({ token: token });
+      }); 
     });
-  });
-};
-
-exports.getIdioms = function(req, res) {
-  var userId = req.body.userId;
-  User.findById(userId, function (err, user) {
-    res.send(user.idioms);
-  });
 }
 
-exports.addCollection = function(req, res) {
-  var userId = req.body.userId;
-  var newCollection = {name:req.body.collectionName, idioms: []};
-  User.findById(userId, function (err, user) {
-    user.collections.push(newCollection);
-    user.save(function(err, user) {
-      res.send(user);
-    });
-  });
-};
 /**
  * Get a single user
  */
