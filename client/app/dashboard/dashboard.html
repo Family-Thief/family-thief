@@ -1,5 +1,35 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container dashboard">
-	<h1>Welcome {{username}}! What would you like to write today?</h1>	
+  <div class="container">
+    <a class="btn btn-default btn-lg" aria-label="Left Align">
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+    </a>
+    <p>You Have {{helpFromOthers.length}} new help from others!</p>
+    <a>You have {{commentsFromOthers.length}}new comments!</a>
+    <h1 class='text-center'>Welcome {{username}}! What would you like to write today?</h1>  
+  </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 text-center" >
+        <button>Submit new help request</button> 
+        <div class="helpRequests" ng-repeat="request in helpRequests">
+          {{request.title}}
+        </div>
+			</div>
+			<div class="col-lg-6 text-center">
+        <button>New contribution</button>
+        <div class="contributions" ng-repeat="contribution in contributions">
+          {{contribution.title}}
+			 </div>
+      </div>
+    </div>
+	 <div class="row">
+      <form ng-submit="search()">
+        <h3>Contribute</h3>
+        <input type="text"> 
+        <input type="submit">
+      </form>
+   </div>
+  </div>
 </div>
