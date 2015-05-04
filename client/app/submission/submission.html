@@ -3,13 +3,25 @@
     <div class="row">
       <div class="col-md-8">
         <h1>My Writing</h1>
+        <form name="helpRequestForm" ng-submit="submitHelpRequest(helpRequestForm.$valid)" novalidate>
+          <div class="form-group">
+            <label for="helpRequestTitle">Title</label>
+            <input type="text" class="form-control" ng-model="helpRequest.title" id="helpRequestTitle">
+            <p class="help-block">The title of your help request</p>
+          </div>
+          <div class="form-group">
+            <label for="helpRequestText">Text</label>
+            <textarea rows="15" type="text" class="form-control" ng-model="helpRequest.text" id="helpRequestText">
+            </textarea>
+            <p class="help-block">Paste the writing you would like help with here</p>
+          </div>
+          <div class="form-group">
+            <label for="helpRequestSummary">Summary</label>
+            <textarea rows="8" type="text" class="form-control" ng-model="helpRequest.summary" id="helpRequestSummary"></textarea>
+            <p class="help-block">Write what you'd like help with here</p>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
       </div>
-      <form name="helpRequestForm" ng-submit="submitHelpRequest(helpRequestForm.$valid)" novalidate>
-        <div class="form-group">
-          <label for="helpRequestText">File input</label>
-          <input type="" id="helpRequestText">
-          <p class="help-block">Paste the writing you would like help with here</p>
-        </div>
-      </form>
     </div>
   </div>
