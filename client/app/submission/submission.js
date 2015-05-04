@@ -8,6 +8,7 @@ angular.module('familyThiefApp')
       .state('submission', {
         url: '/submission',
         templateUrl: 'app/submission/submission.html',
-        controller: 'SubmissionCtrl'
+        controller: 'SubmissionCtrl', 
+        authenticate: false
       });
   });

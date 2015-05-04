@@ -1,1 +1,15 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h1>My Writing</h1>
+      </div>
+      <form name="helpRequestForm" ng-submit="submitHelpRequest(helpRequestForm.$valid)" novalidate>
+        <div class="form-group">
+          <label for="helpRequestText">File input</label>
+          <input type="" id="helpRequestText">
+          <p class="help-block">Paste the writing you would like help with here</p>
+        </div>
+      </form>
+    </div>
+  </div>
