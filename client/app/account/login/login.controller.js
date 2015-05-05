@@ -10,12 +10,12 @@ angular.module('familyThiefApp')
 
       if(form.$valid) {
         Auth.login({
-          email: $scope.user.email,
+          username: $scope.user.username,
           password: $scope.user.password
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/my-idioms');
+          $location.path('/');
         })
         .catch( function(err) {
           $scope.errors.other = err.message;

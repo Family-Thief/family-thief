@@ -10,7 +10,7 @@ angular.module('familyThiefApp')
 
       if(form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
+          username: $scope.user.username,
           email: $scope.user.email,
           password: $scope.user.password
         })
