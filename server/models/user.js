@@ -34,7 +34,9 @@ exports.User = db.define('User',
 
 exports.Project = db.define('Project',
   {
-    projectname: Sequelize.STRING
+    title: Sequelize.STRING,
+    summary: Sequelize.STRING,
+    text: Sequelize.TEXT
   }
 );
 

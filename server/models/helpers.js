@@ -63,3 +63,20 @@ module.exports.searchOrMake = function(username, email, password, response, secr
     }
   });
 };
+
+module.exports.helpRequest = function(username, project, response, secret) {
+  Model.User.find({where: {username: username}}).then(function(user) {
+    if(user) {
+      Model.Project.create({title: project.title, summary: project.summary, text: project.text}).then(function() {
+        var profile = {
+          username: user.username,
+          email: user.email
+        };
+        console.log("Passing back token");
+        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
+      })
+    } else {
+        console.log("Error while creating project");
+    }
+  });
+};
