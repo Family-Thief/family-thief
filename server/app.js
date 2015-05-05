@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var helper = require('./models/helpers.js');
+var fs = require('fs');
 
 var app = express();
 
@@ -11,9 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../client'));
 
-// WARNING DO NOT LEAVE THIS HERE
-var secret = 'hot sauce';
-// SERIOUSLY DON'T!!!
+var secret = String(fs.readFileSync('./config/secret'));
 
 //refactor this to explicitly protect certain routes
 app.use('/api/auth/local', expressJwt({secret: secret}));
