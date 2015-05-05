@@ -8,3 +8,6 @@ dist
 
 # Ingore actual db config
 /server/config/dbConfig.js
+
+# Ignore actual authentication secret
+/server/config/secret
