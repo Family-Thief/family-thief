@@ -6,8 +6,16 @@ angular.module('familyThiefApp')
 
     $scope.helpRequest = {};
 
-    $scope.submitHelpRequest = function() {
-      
+    $scope.submitHelpRequest = function(isValid) {
+      if(isValid) {
+        HelpRequest.save({
+          title: $scope.helpRequest.title,
+          text: $scope.helpRequest.text,
+          summary: $scope.helpRequest.summary
+        }, function(helpRequest){
+          console.log(helpRequest);
+        });
+      }
     }
 
 
