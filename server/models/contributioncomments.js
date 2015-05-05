@@ -1,9 +1,9 @@
 var db = require('../config/dbConfig.js');
 var Sequelize = require('sequelize');
 var User = require('./user.js');
-var Project = require('./project.js');
+var Contribution = require('./contributions.js');
 
-var ProjectComment = db.define('ProjectComment',
+var ContributionComment = db.define('ContributionComment',
   {
     comment: Sequelize.STRING,
     unseenComment: Sequelize.BOOLEAN,
@@ -12,9 +12,9 @@ var ProjectComment = db.define('ProjectComment',
       references: User,
       referencesKey: "id"
     },
-    projectCommented: {
+    contributionCommented: {
       type: Sequelize.INTEGER,
-      references: Project,
+      references: Contribution,
       referencesKey: "id"
     }
 
@@ -23,4 +23,4 @@ var ProjectComment = db.define('ProjectComment',
 
 db.sync();
 
-module.exports = ProjectComment;
+module.exports = ContributionComment;
