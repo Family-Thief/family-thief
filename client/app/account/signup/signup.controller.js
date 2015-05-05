@@ -10,13 +10,13 @@ angular.module('familyThiefApp')
 
       if(form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
+          username: $scope.user.username,
           email: $scope.user.email,
           password: $scope.user.password
         })
         .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
+          // Account created, redirect to user's dashboard
+          $location.path('/dashboard');
         })
         .catch( function(err) {
           err = err.data;
