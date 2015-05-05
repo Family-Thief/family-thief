@@ -24,3 +24,4 @@ var ProjectComment = db.define('ProjectComment',
 db.sync();
 
 module.exports = ProjectComment;
+
