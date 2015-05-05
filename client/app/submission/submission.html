@@ -6,21 +6,24 @@
         <form name="helpRequestForm" ng-submit="submitHelpRequest(helpRequestForm.$valid)" novalidate>
           <div class="form-group">
             <label for="helpRequestTitle">Title</label>
-            <input type="text" class="form-control" ng-model="helpRequest.title" id="helpRequestTitle">
+            <input type="text" class="form-control" ng-model="helpRequest.title" id="helpRequestTitle" name="title" required>
             <p class="help-block">The title of your help request</p>
+            <p ng-show="helpRequestForm.title.$invalid && !helpRequestForm.title.$pristine" class="help-block">The title is required.</p>
           </div>
           <div class="form-group">
             <label for="helpRequestText">Text</label>
-            <textarea rows="15" type="text" class="form-control" ng-model="helpRequest.text" id="helpRequestText">
+            <textarea rows="15" type="text" class="form-control" ng-model="helpRequest.text" id="helpRequestText" name="text" required>
             </textarea>
             <p class="help-block">Paste the writing you would like help with here</p>
+            <p ng-show="helpRequestForm.text.$invalid && !helpRequestForm.text.$pristine" class="help-block">Your writing is required.</p>
           </div>
           <div class="form-group">
             <label for="helpRequestSummary">Summary</label>
-            <textarea rows="8" type="text" class="form-control" ng-model="helpRequest.summary" id="helpRequestSummary"></textarea>
+            <textarea rows="8" type="text" class="form-control" ng-model="helpRequest.summary" id="helpRequestSummary" name="summary" required></textarea>
             <p class="help-block">Write what you'd like help with here</p>
+            <p ng-show="helpRequestForm.summary.$invalid && !helpRequestForm.summary.$pristine" class="help-block">Your summary is required.</p>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
         </form>
       </div>
     </div>
