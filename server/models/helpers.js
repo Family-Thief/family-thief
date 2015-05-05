@@ -41,8 +41,7 @@ module.exports.findAllInfo = function(username, response, secret) {
           email: user.email,
           helpRequests: projectsArray
         }
-        //I think I got it to return the array of all their projects, but not sure if this is right/how to change format
-        console.log(profile.helpRequests);
+
         console.log("Delivering profile");
         response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
       });
