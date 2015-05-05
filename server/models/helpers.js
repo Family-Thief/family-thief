@@ -1,9 +1,10 @@
 var Sequelize = require('sequelize');
-var Model = require('./user.js');
+var User = require('./user.js');
+var Project = require('./project.js');
 var jwt = require('jsonwebtoken');
 
 module.exports.authenticate = function(username, password, response, secret) {
-  Model.User.find({where: {username: username}}).then(function(user) {
+  User.find({where: {username: username}}).then(function(user) {
     if(user) {
 
       if (user.checkPassword(password)) {
@@ -28,15 +29,21 @@ module.exports.authenticate = function(username, password, response, secret) {
 
 
 module.exports.findAllInfo = function(username, response, secret) {
-  Model.User.find({where: {username:username}}).then(function(user){
+  User.find({where: {username:username}}).then(function(user){
     if (user) {
-      UserProject.findAll({where: {userid: user.id}}).then(function(allProjects){
+      Project.findAll({where: {user_id: user.id}}).then(function(allProjects){
+        var projectsArray = [];
+        for (var i = 0; i < allProjects.length; i++) {
+          projectsArray.push(allProjects[i].dataValues);
+        }
         var profile = {
           username: user.username,
           email: user.email,
-          helpRequests: allProjects
+          helpRequests: projectsArray
         }
+        //I think I got it to return the array of all their projects, but not sure if this is right/how to change format
         console.log(profile.helpRequests);
+        console.log("Delivering profile");
         response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
       });
     } else {
@@ -46,12 +53,12 @@ module.exports.findAllInfo = function(username, response, secret) {
 };
 
 module.exports.searchOrMake = function(username, email, password, response, secret) {
-  Model.User.find({where: {username: username}}).then(function(user) {
+  User.find({where: {username: username}}).then(function(user) {
     if(user) {
       console.log('User exists');
       response.send(401, "That user already exists!");
     } else {
-      Model.User.create({username: username, email: email}).then(function(user) {
+      User.create({username: username, email: email}).then(function(user) {
         user.password = user.setPassword(password);
         var profile = {
           username: user.username,
@@ -60,6 +67,23 @@ module.exports.searchOrMake = function(username, email, password, response, secr
         console.log("User created");
         response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
       })
+    }
+  });
+};
+
+module.exports.helpRequest = function(username, project, response, secret) {
+  User.find({where: {username: username}}).then(function(user) {
+    if(user) {
+      Project.create({title: project.title, summary: project.summary, text: project.text}).then(function() {
+        var profile = {
+          username: user.username,
+          email: user.email
+        };
+        console.log("Passing back token");
+        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
+      })
+    } else {
+        console.log("Error while creating project");
     }
   });
 };
