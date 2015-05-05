@@ -33,14 +33,16 @@ app.post('/auth/local', function(req, res) {
 //path for user's profile
 app.get('/api/users/me', function(req, res){
   var decoded = jwt.decode(req.headers.authorization.slice(7));
-
+  helper.findAllInfo(decoded.username, res, secret);
 });
 
 //path for help request
 app.post('/api/helpRequests', function(req, res){
+  console.log("in post");
   var decoded = jwt.decode(req.headers.authorization.slice(7));
   helper.helpRequest(decoded.username, req.body, res, secret);
 });
+
 
 app.get('/api/things', function(req, res){
   var info = {};
