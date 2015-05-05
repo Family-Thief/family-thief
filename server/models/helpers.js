@@ -3,6 +3,7 @@ var User = require('./user.js');
 var Project = require('./project.js');
 var ProjectUpvote = require('./projectupvotes.js');
 var Contribution = require('./contributions.js');
+var ContributionUpvote = require('./contributionupvotes.js');
 var ProjectComment = require('./projectcomments.js');
 var jwt = require('jsonwebtoken');
 
