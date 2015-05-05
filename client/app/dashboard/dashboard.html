@@ -25,11 +25,26 @@
       </div>
     </div>
 	 <div class="row">
-      <form ng-submit="search()">
-        <h3>Contribute</h3>
-        <input type="text"> 
-        <input type="submit">
+      <form name="searchForm" ng-submit="search()" novalidate>
+        <label for="string">Search for a project to help</label>
+        <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
+        <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
       </form>
+      <div class="searchResult" ng-repeat="result in searchResults">
+        <div class="row">
+          <a ng-click="loadHelpRequest({{result.id}})">
+            <div class="col-md-4">
+              {{result.title}}
+            </div>
+            <div class="col-md-4">
+              {{result.summary}}
+            </div>
+            <div class="col-md-2">
+              {{result.origDate}}
+            </div>
+          </a>
+        </div>
+      </div>
    </div>
   </div>
 </div>
