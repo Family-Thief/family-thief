@@ -1,6 +1,9 @@
 var Sequelize = require('sequelize');
 var User = require('./user.js');
 var Project = require('./project.js');
+var ProjectUpvote = require('./projectupvotes.js');
+var Contribution = require('./contributions.js');
+var ProjectComment = require('./projectcomments.js');
 var jwt = require('jsonwebtoken');
 
 module.exports.authenticate = function(username, password, response, secret) {
