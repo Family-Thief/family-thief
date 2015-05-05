@@ -15,8 +15,8 @@ angular.module('familyThiefApp')
           password: $scope.user.password
         })
         .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
+          // Account created, redirect to user's dashboard
+          $location.path('/dashboard');
         })
         .catch( function(err) {
           err = err.data;
