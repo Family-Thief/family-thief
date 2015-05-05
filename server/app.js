@@ -18,7 +18,8 @@ var secret = 'hot sauce';
 //refactor this to explicitly protect certain routes
 app.use('/api/auth/local', expressJwt({secret: secret}));
 app.use('/api/things', expressJwt({secret: secret}));
-// app.use('/api/users/me', expressJwt({secret: secret}));
+app.use('/api/helpRequests/votes', expressJwt({secret: secret}));
+app.use('/api/users/me', expressJwt({secret: secret}));
 
 //path for when users are created
 app.post('/api/users', function(req, res){
@@ -38,6 +39,13 @@ app.get('/api/users/me', function(req, res){
 
 //path for help request
 app.post('/api/helpRequests', function(req, res){
+  console.log("in post");
+  var decoded = jwt.decode(req.headers.authorization.slice(7));
+  helper.helpRequest(decoded.username, req.body, res, secret);
+});
+
+//path for votes
+app.post('/api/helpRequests/votes', function(req, res){
   console.log("in post");
   var decoded = jwt.decode(req.headers.authorization.slice(7));
   helper.helpRequest(decoded.username, req.body, res, secret);
