@@ -2,14 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
-var helper = require('./db/models/helpers.js');
+var helper = require('./models/helpers.js');
 
 var app = express();
 
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '../client'));
+app.use(express.static(__dirname + '/../client'));
 
 // WARNING DO NOT LEAVE THIS HERE
 var secret = 'hot sauce';
