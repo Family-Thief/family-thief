@@ -164,7 +164,7 @@ module.exports.viewProject = function(projectId, response) {
 module.exports.makeContribution = function(username, contribution, response) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
-      Contribution.create({contributor: user.id, project: contribution.helpedId, text: contribution.text, unseenHelp: 0).then(function() {
+      Contribution.create({contributor: user.id, project: contribution.helpedId, text: contribution.text, unseenHelp: false}).then(function() {
         response.send(201, "Contribution made");
       });
     } else {
@@ -172,3 +172,16 @@ module.exports.makeContribution = function(username, contribution, response) {
     }
   });
 };
+
+module.exports.contributionComment = function(contribution, response) {
+  User.find({where: {username: contribution.commenter}}).then(function(user) {
+    if(user) {
+      ContributionComment.create({comment: contribution.text, unseenComment: false, commenter: user.id, contributionCommented: contribution.contributionId}).then(function() {
+        response.send(201, "Contribution comment made");
+      });
+    } else {
+        console.log("Error while making contribution comment");
+    }
+  });
+};
+
