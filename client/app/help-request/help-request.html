@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <h1>Writing you can contribute to</h1>
+        <h1>Contribute</h1>
         <form name="helpRequestForm" ng-submit="respondToHelpRequest(helpRequestForm.$valid)" novalidate>
           <div class="form-group">
             <label for="helpRequestTitle">{{helpRequest.title}}</label>
@@ -10,25 +10,25 @@
             <p class="help-block">The title of your help request</p-->
           </div>
           <div class="form-group">
-            <p class="help-block">Here's a bit of direction from the Author</p>
-            <!--label for="helpRequestSummary">Summary</label-->
+            <label for="helpRequestSummary">Summary</label>
             <p class="form-control" ng-model="helpRequest.summary" id="helpRequestSummary">{{helpRequest.summary}}</p>
+            <p class="help-block">Notes from the Author</p>
           </div>
           <div class="form-group">
-            <p class="help-block">Here's the author's original writing sample</p>
-            <!--label for="helpRequestText">Text</label-->
+            <label for="helpRequestText">Text</label>
             <p class="form-control" ng-model="helpRequest.text" id="helpRequestText">{{helpRequest.text}}</p>
+            <p class="help-block">Original Sample</p>
           </div>
           <div class="form-group">
-            <p class="help-block">Here are contributions from other writers</p>
+            <p class="help-block">Contributions</p>
             <!--label for="helpRequestContributions">Contributions from Others</label-->
             <ol class="form-control" ng-model="helpRequest.contributions" ng-repeat="contributions in helpRequest.contributions" id="helpRequestContributions">{{helpRequest.contributions}}</ol>
           </div>
           <div class="form-group">
-            <p class="help-block">Paste your contribution here</p>
-            <!--label for="helpRequestText">Your Contribution</label-->
-            <textarea rows="8" type="text" class="form-control" ng-model="contributions.text" id="ContributionsText">
+            <label for="helpRequestText">Your Contribution</label>
+            <textarea rows="8" type="text" class="form-control" ng-model="contributions.text" id="ContributionsText">{{contributions.text}}
             </textarea>
+            <p class="help-block">(paste above)</p>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
