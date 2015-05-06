@@ -34,21 +34,59 @@ module.exports.authenticate = function(username, password, response, secret) {
 
 
 module.exports.findAllInfo = function(username, response, secret) {
+  //finding the logged in user
   User.find({where: {username:username}}).then(function(user){
     if (user) {
+      //finding all their projects
       Project.findAll({where: {user_id: user.id}}).then(function(allProjects){
         var projectsArray = [];
+        var uniqueProjects = [];
         for (var i = 0; i < allProjects.length; i++) {
           projectsArray.push(allProjects[i].dataValues);
+          var projectId = allProjects[i].dataValues.id;
+          uniqueProjects.push(projectId);
         }
-        var profile = {
-          username: user.username,
-          email: user.email,
-          helpRequests: projectsArray
-        }
+        //finding all their contributions
+        Contribution.findAll({where: {contributor: user.id}}).then(function(allContributions) {
+          var contributionsArray = [];
+          var uniqueContributions = [];
+          for (var j = 0; j< allContributions.length; j ++) {
+            contributionsArray.push(allContributions[j].dataValues);
+            var contributionId = allContributions[j].dataValues.id;
+            if (uniqueContributions.indexOf(contributionId) < 0) {
+              uniqueContributions.push(contributionId);
+            }
+          }
+          //finding and counting all unseenhelprequests
+            Contribution.findAndCountAll({where:{project: uniqueProjects, unseenHelp: false}}).then(function(unseenHelps) {
+              //finding and counting all unseencomments from projects
+              ProjectComment.findAndCountAll({where:{projectCommented: uniqueProjects, unseenComment: false}}).then(function(unseenProjectComments) {
+                //finding and counting all unseencomments from contributions
+                ContributionComment.findAndCountAll({where:{contributionCommented: uniqueContributions, unseenComment: false}}).then(function(unseenContributionComments) {
+                  //finding and counting all votes for projects
+                    ProjectUpvote.findAndCountAll({where:{projectupvoted: uniqueProjects}}).then(function(projectUpvotes) {
+                      //finding and counting all votes for contributions
+                      ContributionUpvote.findAndCountAll({where: {contributionupvoted: uniqueContributions}}).then(function(contributionUpvotes) {
 
-        console.log("Delivering profile");
-        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
+                          var profile = {
+                            username: user.username,
+                            email: user.email,
+                            helpRequests: projectsArray,
+                            contributions: contributionsArray,
+                            numberUnseenHelps: unseenHelps.count,
+                            numberUnseenComments: unseenProjectComments.count + unseenContributionComments.count,
+                            votes: projectUpvotes.count + contributionUpvotes.count
+                          }
+
+                          console.log(profile);
+                          console.log("Delivering profile");
+                          response.json(profile);
+                      });
+                    });
+                });
+              });
+            });
+        });
       });
     } else {
       response.send(401, "Error - how can you not be found when logged in?");
@@ -69,7 +107,7 @@ module.exports.searchOrMake = function(username, email, password, response, secr
           email: user.email
         };
         console.log("User created");
-        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
+        response.json(profile);
       })
     }
   });
@@ -78,13 +116,13 @@ module.exports.searchOrMake = function(username, email, password, response, secr
 module.exports.helpRequest = function(username, project, response, secret) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
-      Project.create({title: project.title, summary: project.summary, text: project.text}).then(function() {
+      Project.create({title: project.title, summary: project.summary, text: project.text, user_id: user.id}).then(function() {
         var profile = {
           username: user.username,
           email: user.email
         };
         console.log("Passing back token");
-        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
+        response.json(profile);
       })
     } else {
         console.log("Error while creating project");
