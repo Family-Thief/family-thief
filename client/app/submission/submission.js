@@ -9,6 +9,6 @@ angular.module('familyThiefApp')
         url: '/submission',
         templateUrl: 'app/submission/submission.html',
         controller: 'SubmissionCtrl', 
-        authenticate: false
+        authenticate: true
       });
   });

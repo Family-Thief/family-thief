@@ -7,6 +7,6 @@ angular.module('familyThiefApp')
         url: '/dashboard',
         templateUrl: 'app/dashboard/dashboard.html',
         controller: 'DashboardCtrl',
-        authenticate: false
+        authenticate: true
       });
   });

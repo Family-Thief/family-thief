@@ -107,7 +107,7 @@ angular.module('familyThiefApp')
        * @return {Boolean}
        */
       isLoggedIn: function() {
-        return currentUser.hasOwnProperty('role');
+        return currentUser.hasOwnProperty('username');
       },
 
       /**
