@@ -5,21 +5,21 @@
     <a class="btn btn-default btn-lg" aria-label="Left Align">
       <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
     </a>
-    <p>You Have {{helpFromOthers.length}} new help from others!</p>
-    <a>You have {{commentsFromOthers.length}}new comments!</a>
-    <h1 class='text-center'>Welcome {{username}}! What would you like to write today?</h1>  
+    <p>You Have {{user.numberUnseenHelps}} new help from others!</p>
+    <a>You have {{user.numberUnseenComments}} new comments!</a>
+    <h1 class='text-center'>Welcome {{user.username}}! What would you like to write today?</h1>  
   </div>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 text-center" >
         <button><a href="/submission">Submit new help request</a></button> 
-        <div class="helpRequests" ng-repeat="request in helpRequests">
+        <div class="helpRequests" ng-repeat="request in user.helpRequests">
           {{request.title}}
         </div>
 			</div>
 			<div class="col-lg-6 text-center">
         <button>New contribution</button>
-        <div class="contributions" ng-repeat="contribution in contributions">
+        <div class="contributions" ng-repeat="contribution in user.contributions">
           {{contribution.title}}
 			 </div>
       </div>
@@ -32,7 +32,7 @@
       </form>
       <div class="searchResult" ng-repeat="result in searchResults">
         <div class="row">
-          <a ng-click="loadHelpRequest({{result.id}})">
+          <a ng-click="loadHelpRequest(result.id)">
             <div class="col-md-4">
               {{result.title}}
             </div>
