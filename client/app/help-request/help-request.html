@@ -20,11 +20,6 @@
             <p class="help-block">Original Sample</p>
           </div>
           <div class="form-group">
-            <p class="help-block">Contributions</p>
-            <!--label for="helpRequestContributions">Contributions from Others</label-->
-            <ol class="form-control" ng-model="helpRequest.contributions" ng-repeat="contributions in helpRequest.contributions" id="helpRequestContributions">{{helpRequest.contributions}}</ol>
-          </div>
-          <div class="form-group">
             <label for="helpRequestText">Your Contribution</label>
             <textarea rows="8" type="text" class="form-control" ng-model="contributions.text" id="ContributionsText">{{contributions.text}}
             </textarea>
