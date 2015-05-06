@@ -57,13 +57,13 @@ app.get('/api/helpRequests/:id', function(req, res){
 });
 
 //path for posting contribution
-app.get('/api/contributions', function (req, res){
+app.post('/api/contributions', function (req, res){
   var decoded = jwt.decode(req.headers.authorization.slice(7));
   help.makeContribution(decoded.username, req.body, res);
 });
 
 //path for posting contribution comments
-app.get('/api/contributions/comments', function (req, res){
+app.post('/api/contributions/comments', function (req, res){
   help.contributionComment(req.body, res);
 });
 
