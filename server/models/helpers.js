@@ -33,7 +33,7 @@ module.exports.authenticate = function(username, password, response, secret) {
 };
 
 
-module.exports.findAllInfo = function(username, response, secret) {
+module.exports.findAllInfo = function(username, response) {
   //finding the logged in user
   User.find({where: {username:username}}).then(function(user){
     if (user) {
@@ -77,8 +77,6 @@ module.exports.findAllInfo = function(username, response, secret) {
                             numberUnseenComments: unseenProjectComments.count + unseenContributionComments.count,
                             votes: projectUpvotes.count + contributionUpvotes.count
                           }
-
-                          console.log(profile);
                           console.log("Delivering profile");
                           response.json(profile);
                       });
@@ -107,13 +105,13 @@ module.exports.searchOrMake = function(username, email, password, response, secr
           email: user.email
         };
         console.log("User created");
-        response.json(profile);
+        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
       })
     }
   });
 };
 
-module.exports.helpRequest = function(username, project, response, secret) {
+module.exports.helpRequest = function(username, project, response) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
       Project.create({title: project.title, summary: project.summary, text: project.text, user_id: user.id}).then(function() {
@@ -128,4 +126,10 @@ module.exports.helpRequest = function(username, project, response, secret) {
         console.log("Error while creating project");
     }
   });
+};
+
+module.exports.projectUpvote = function(userId, projectId, response) {
+  ProjectUpvote.create({upvoter: userId, projectupvoted: projectId}).then(function() {
+      response.send(201, "Project upvoted");
+    })
 };
