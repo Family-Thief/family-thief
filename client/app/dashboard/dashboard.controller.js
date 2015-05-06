@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('familyThiefApp')
-  .controller('DashboardCtrl', function ($scope, $http, Auth, HelpRequest) {
+  .controller('DashboardCtrl', function ($scope, $http, Auth, HelpRequest, $location) {
     
     // inject data of currently logged-in user into this controller
     $scope.user = Auth.getCurrentUser();
@@ -19,8 +19,9 @@ angular.module('familyThiefApp')
     };
     
     $scope.loadHelpRequest = function(id) {
-      HelpRequest.setHelpRequestId(id);
-      console.log(HelpRequest.getCurrentHelpRequest());
-    }
+      console.log(id);
+      Auth.setHelpRequest(id);
+      $location.path('/help-request');
+    };
     
   });

@@ -13,8 +13,8 @@
 		<div class="row">
 			<div class="col-lg-6 text-center" >
         <button><a href="/submission">Submit new help request</a></button> 
-        <div class="helpRequests" ng-repeat="request in user.helpRequests">
-          {{request.title}}
+        <div class="helpRequests" ng-repeat="request in user.helpRequests" >
+          <a ng-click="loadHelpRequest(request.id)">{{request.title}}</a>
         </div>
 			</div>
 			<div class="col-lg-6 text-center">

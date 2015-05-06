@@ -5,16 +5,10 @@
 angular.module('familyThiefApp')
   .factory('HelpRequest', function ($resource) {
     var currentHelpRequest;
-    return $resource('/api/helpRequests', {
-      id: '@_id'
+    return $resource('/api/helpRequests/:id', {
+      id: '@id'
     },
     {
-      setHelpRequestId: function(id) {
-        console.log("inside");
-        currentHelpRequest = id;
-      },
-      getCurrentHelpRequest: function() {
-        return currentHelpRequest;
-      }
+      
     });
   });
