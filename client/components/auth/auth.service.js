@@ -3,6 +3,8 @@
 angular.module('familyThiefApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
+    // keeps track of whether a user is about to view a helpRequest
+    var helpRequestId;
     if($cookieStore.get('token')) {
       currentUser = User.get();
     }
@@ -141,6 +143,19 @@ angular.module('familyThiefApp')
        */
       getToken: function() {
         return $cookieStore.get('token');
-      }
+      },
+
+      /**
+       * Set help request to be viewed
+       */
+       setHelpRequest: function(id) {
+        helpRequestId = id;
+       },
+
+       getHelpRequest: function(id) {
+        return helpRequestId;
+       }
+
+
     };
   });

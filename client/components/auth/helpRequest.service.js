@@ -4,7 +4,9 @@
 
 angular.module('familyThiefApp')
   .factory('HelpRequest', function ($resource) {
-    return $resource('/api/helpRequests', {
+    var currentHelpRequest;
+    return $resource('/api/helpRequests/:id', {
+      id: '@id'
     },
     {
       
