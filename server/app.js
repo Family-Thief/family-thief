@@ -20,6 +20,7 @@ app.use('/api/things', expressJwt({secret: secret}));
 app.use('/api/helpRequests/votes', expressJwt({secret: secret}));
 app.use('/api/users/me', expressJwt({secret: secret}));
 app.use('/api/helpRequests/', expressJwt({secret: secret}));
+app.use('/api/contributions/', expressJwt({secret: secret}));
 
 //path for when users are created
 app.post('/api/users', function(req, res){
@@ -51,15 +52,13 @@ app.post('/api/helpRequests/votes', function(req, res){
 
 //path for viewing specific helpRequest
 app.get('/api/helpRequests/:id', function(req, res){
-  console.log(req.params);
   helper.viewProject(req.params.id, res);
 });
 
-app.get('/restricted', function (req, res){
-    console.log("user is calling a restricted route");
-    res.json({
-      name: 'Hi there'
-    });
+//path for posting contribution
+app.get('/api/contributions', function (req, res){
+  var decoded = jwt.decode(req.headers.authorization.slice(7));
+  help.makeContribution(decoded.username, req.body, res);
 });
 
 app.listen(3000);
