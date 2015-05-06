@@ -40,22 +40,21 @@ module.exports.findAllInfo = function(username, response, secret) {
       //finding all their projects
       Project.findAll({where: {user_id: user.id}}).then(function(allProjects){
         var projectsArray = [];
+        var uniqueProjects = [];
         for (var i = 0; i < allProjects.length; i++) {
           projectsArray.push(allProjects[i].dataValues);
+          var projectId = allProjects[i].dataValues.id;
+          uniqueProjects.push(projectId);
         }
         //finding all their contributions
         Contribution.findAll({where: {contributor: user.id}}).then(function(allContributions) {
           var contributionsArray = [];
-          var uniqueProjects = [];
           for (var j = 0; j< allContributions.length; j ++) {
             contributionsArray.push(allContributions[j].dataValues);
-            var projectId = allContributions[j].dataValues.project;
-            if (uniqueProjects.indexOf(projectId) < 0 ) {
-              uniqueProjects.push(allContributions[j].dataValues.project);
-            }
           }
+          
           //finding and counting all unseenhelprequests
-            Contribution.findAndCountAll({where:{contributor: user.id, project: uniqueProjects, unseenHelp: false}}).then(function(unseenHelps) {
+            Contribution.findAndCountAll({where:{project: uniqueProjects, unseenHelp: false}}).then(function(unseenHelps) {
               var profile = {
                 username: user.username,
                 email: user.email,
@@ -65,6 +64,7 @@ module.exports.findAllInfo = function(username, response, secret) {
                 numberUnseenComments: 0,
                 votes: 0
               }
+              console.log(profile.numberUnseenHelps);
               console.log("Delivering profile");
               response.json(profile);
             })
