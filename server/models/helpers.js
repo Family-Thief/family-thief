@@ -34,21 +34,41 @@ module.exports.authenticate = function(username, password, response, secret) {
 
 
 module.exports.findAllInfo = function(username, response, secret) {
+  //finding the logged in user
   User.find({where: {username:username}}).then(function(user){
     if (user) {
+      //finding all their projects
       Project.findAll({where: {user_id: user.id}}).then(function(allProjects){
         var projectsArray = [];
         for (var i = 0; i < allProjects.length; i++) {
           projectsArray.push(allProjects[i].dataValues);
         }
-        var profile = {
-          username: user.username,
-          email: user.email,
-          helpRequests: projectsArray
-        }
-
-        console.log("Delivering profile");
-        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
+        //finding all their contributions
+        Contribution.findAll({where: {contributor: user.id}}).then(function(allContributions) {
+          var contributionsArray = [];
+          var uniqueProjects = [];
+          for (var j = 0; j< allContributions.length; j ++) {
+            contributionsArray.push(allContributions[j].dataValues);
+            var projectId = allContributions[j].dataValues.project;
+            if (uniqueProjects.indexOf(projectId) < 0 ) {
+              uniqueProjects.push(allContributions[j].dataValues.project);
+            }
+          }
+          //finding and counting all unseenhelprequests
+            Contribution.findAndCountAll({where:{contributor: user.id, project: uniqueProjects, unseenHelp: false}}).then(function(unseenHelps) {
+              var profile = {
+                username: user.username,
+                email: user.email,
+                helpRequests: projectsArray,
+                contributions: contributionsArray,
+                numberUnseenHelps: unseenHelps.count,
+                numberUnseenComments: 0,
+                votes: 0
+              }
+              console.log("Delivering profile");
+              response.json(profile);
+            })
+        });
       });
     } else {
       response.send(401, "Error - how can you not be found when logged in?");
@@ -69,7 +89,7 @@ module.exports.searchOrMake = function(username, email, password, response, secr
           email: user.email
         };
         console.log("User created");
-        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
+        response.json(profile);
       })
     }
   });
@@ -78,13 +98,13 @@ module.exports.searchOrMake = function(username, email, password, response, secr
 module.exports.helpRequest = function(username, project, response, secret) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
-      Project.create({title: project.title, summary: project.summary, text: project.text}).then(function() {
+      Project.create({title: project.title, summary: project.summary, text: project.text, user_id: user.id}).then(function() {
         var profile = {
           username: user.username,
           email: user.email
         };
         console.log("Passing back token");
-        response.json({token: jwt.sign(profile, secret, { expiresInMinutes: 60 * 5})});
+        response.json(profile);
       })
     } else {
         console.log("Error while creating project");
