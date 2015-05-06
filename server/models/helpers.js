@@ -49,25 +49,43 @@ module.exports.findAllInfo = function(username, response, secret) {
         //finding all their contributions
         Contribution.findAll({where: {contributor: user.id}}).then(function(allContributions) {
           var contributionsArray = [];
+          var uniqueContributions = [];
           for (var j = 0; j< allContributions.length; j ++) {
             contributionsArray.push(allContributions[j].dataValues);
+            var contributionId = allContributions[j].dataValues.id;
+            if (uniqueContributions.indexOf(contributionId) < 0) {
+              uniqueContributions.push(contributionId);
+            }
           }
-          
           //finding and counting all unseenhelprequests
             Contribution.findAndCountAll({where:{project: uniqueProjects, unseenHelp: false}}).then(function(unseenHelps) {
-              var profile = {
-                username: user.username,
-                email: user.email,
-                helpRequests: projectsArray,
-                contributions: contributionsArray,
-                numberUnseenHelps: unseenHelps.count,
-                numberUnseenComments: 0,
-                votes: 0
-              }
-              console.log(profile.numberUnseenHelps);
-              console.log("Delivering profile");
-              response.json(profile);
-            })
+              //finding and counting all unseencomments from projects
+              ProjectComment.findAndCountAll({where:{projectCommented: uniqueProjects, unseenComment: false}}).then(function(unseenProjectComments) {
+                //finding and counting all unseencomments from contributions
+                ContributionComment.findAndCountAll({where:{contributionCommented: uniqueContributions, unseenComment: false}}).then(function(unseenContributionComments) {
+                  //finding and counting all votes for projects
+                    ProjectUpvote.findAndCountAll({where:{projectupvoted: uniqueProjects}}).then(function(projectUpvotes) {
+                      //finding and counting all votes for contributions
+                      ContributionUpvote.findAndCountAll({where: {contributionupvoted: uniqueContributions}}).then(function(contributionUpvotes) {
+
+                          var profile = {
+                            username: user.username,
+                            email: user.email,
+                            helpRequests: projectsArray,
+                            contributions: contributionsArray,
+                            numberUnseenHelps: unseenHelps.count,
+                            numberUnseenComments: unseenProjectComments.count + unseenContributionComments.count,
+                            votes: projectUpvotes.count + contributionUpvotes.count
+                          }
+
+                          console.log(profile);
+                          console.log("Delivering profile");
+                          response.json(profile);
+                      });
+                    });
+                });
+              });
+            });
         });
       });
     } else {
