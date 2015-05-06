@@ -19,6 +19,7 @@ app.use('/api/auth/local', expressJwt({secret: secret}));
 app.use('/api/things', expressJwt({secret: secret}));
 app.use('/api/helpRequests/votes', expressJwt({secret: secret}));
 app.use('/api/users/me', expressJwt({secret: secret}));
+app.use('/api/helpRequests/', expressJwt({secret: secret}));
 
 //path for when users are created
 app.post('/api/users', function(req, res){
@@ -48,9 +49,10 @@ app.post('/api/helpRequests/votes', function(req, res){
   helper.projectUpvote(decoded.id, req.body.helpRequestId, res);
 });
 
-app.get('/api/things', function(req, res){
-  var info = {};
-  res.json(info);
+//path for viewing specific helpRequest
+app.get('/api/helpRequests/:id', function(req, res){
+  console.log(req.params);
+  helper.viewProject(req.params.id, res);
 });
 
 app.get('/restricted', function (req, res){

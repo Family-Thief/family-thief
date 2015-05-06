@@ -133,3 +133,29 @@ module.exports.projectUpvote = function(userId, projectId, response) {
       response.send(201, "Project upvoted");
     })
 };
+
+module.exports.viewProject = function(projectId, response) {
+  Project.find({where: {id: projectId}}).then(function(project) {
+    if(project) {
+      Contribution.findAll({where: {project:projectId}}).then(function(contributions) {
+        var allContributions = [];
+        for (var i = 0; i < contributions.length; i++) {
+          allContributions.push(contributions[i].dataValues);
+        }
+        ProjectUpvote.findAndCountAll({where:{projectupvoted: projectId}}).then(function(projectvotes) {
+          var projectDetails = {
+            title: project.title,
+            summary: project.summary,
+            text: project.text,
+            votes: projectvotes.count,
+            contributions: allContributions
+          };
+          console.log("Showing project details");
+          response.json(projectDetails);
+        });
+      })
+    } else {
+        console.log("Error while finding project");
+    }
+  });
+};
