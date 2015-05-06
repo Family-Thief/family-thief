@@ -20,8 +20,8 @@ app.use('/api/things', expressJwt({secret: secret}));
 app.use('/api/helpRequests/votes', expressJwt({secret: secret}));
 app.use('/api/users/me', expressJwt({secret: secret}));
 app.use('/api/helpRequests/', expressJwt({secret: secret}));
-//app.use('/api/contributions/', expressJwt({secret: secret}));
-//app.use('/api/contributions/comments', expressJwt({secret: secret}));
+app.use('/api/contributions/', expressJwt({secret: secret}));
+app.use('/api/contributions/comments', expressJwt({secret: secret}));
 
 //path for when users are created
 app.post('/api/users', function(req, res){
