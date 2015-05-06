@@ -148,7 +148,8 @@ module.exports.viewProject = function(projectId, response) {
             summary: project.summary,
             text: project.text,
             votes: projectvotes.count,
-            contributions: allContributions
+            contributions: allContributions,
+            origDate: project.createdAt
           };
           console.log("Showing project details");
           response.json(projectDetails);
@@ -156,6 +157,18 @@ module.exports.viewProject = function(projectId, response) {
       })
     } else {
         console.log("Error while finding project");
+    }
+  });
+};
+
+module.exports.makeContribution = function(username, contribution, response) {
+  User.find({where: {username: username}}).then(function(user) {
+    if(user) {
+      Contribution.create({contributor: user.id, project: contribution.helpedId, text: contribution.text, unseenHelp: 0).then(function() {
+        response.send(201, "Contribution made");
+      });
+    } else {
+        console.log("Error while making contribution");
     }
   });
 };
