@@ -152,7 +152,7 @@ angular.module('familyThiefApp')
         helpRequestId = id;
        },
 
-       getHelpRequest: function(id) {
+       getHelpRequest: function() {
         return helpRequestId;
        }
 
