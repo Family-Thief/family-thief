@@ -22,6 +22,7 @@ app.use('/api/users/me', expressJwt({secret: secret}));
 app.use('/api/helpRequests/', expressJwt({secret: secret}));
 app.use('/api/contributions/', expressJwt({secret: secret}));
 app.use('/api/contributions/comments', expressJwt({secret: secret}));
+app.use('/api/contributions/votes', expressJwt({secret: secret}));
 
 //path for when users are created
 app.post('/api/users', function(req, res){
@@ -65,6 +66,17 @@ app.post('/api/contributions', function (req, res){
 //path for posting contribution comments
 app.post('/api/contributions/comments', function (req, res){
   helper.contributionComment(req.body, res);
+});
+
+//path for voting on contributions
+app.post('/api/contributions/votes', function (req, res){
+  var decoded = jwt.decode(req.headers.authorization.slice(7));
+  helper.contributionUpvote(decoded.id, req.body.contributionId, res);
+});
+
+//path for viewing contributions
+app.get('/api/contributions/:id', function (req, res){
+  helper.viewContribution(req.params.id, res);
 });
 
 app.listen(3000);

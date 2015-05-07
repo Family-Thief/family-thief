@@ -185,3 +185,39 @@ module.exports.contributionComment = function(contribution, response) {
   });
 };
 
+module.exports.contributionUpvote = function(userId, contributionId) {
+  ContributionUpvote.create({upvoter: userId, contributionupvoted: contributionId}).then(function() {
+      response.send(201, "Contribution upvoted");
+    })
+};
+
+module.exports.viewContribution = function(contributionId, response) {
+  Contribution.find({where: {id: contributionId}}).then(function(contribution) {
+    if(contribution) {
+      ContributionComment.findAll({where: {contributionCommented: contributionId}}).then(function(contributionComments) {
+        var allContributionComments = [];
+        for (var i = 0; i < contributionComments.length; i++) {
+          allContributionComments.push(contributionComments[i].dataValues);
+        }
+        Project.find({where: {id: contribution.project}}).then(function(project) {
+          User.find({where: {id: contribution.contributor}}).then(function(contributingUser) {
+            User.find({where: {id: project.user_id}}).then(function(helpedUser) {
+              var contributionDetails = {
+                text: contribution.contributionText,
+                comments: allContributionComments,
+                date: contribution.createdAt,
+                helpRequestText: project.text,
+                contributor: contributingUser.username,
+                userHelped: helpedUser.username
+              };
+              console.log("Showing contribution details");
+              response.json(contributionDetails);
+            });
+          });
+        });
+      });
+    } else {
+        console.log("Error while finding contribution");
+    }
+  });
+};
