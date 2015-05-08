@@ -1,15 +1,12 @@
-.contrib {
-	margin: 20 px
+.search {
+
+	margin-top: 50px;
 }
 
-
-.salutation {
-
-	margin: 35px 0;
-	border-radius: 10px
+.search-label {
+	font: 30px;
 }
 
-.buttons {
-
-	margin: 100px;
+.form-control {
+	margin: 25px;
 }

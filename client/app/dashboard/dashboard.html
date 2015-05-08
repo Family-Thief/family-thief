@@ -1,10 +1,10 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<header>
+<header class="hero-unit" id="banner">
   <div class="container">
     <div class="row">
       <div class="col-lg-3">
-        <a class="btn btn-primary btn-lg" aria-label="Left Align" href="/contributionRecd">
+        <a class="btn btn-success btn-lg" aria-label="Left Align" href="/contributionRecd">
           <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
         </a>
         <p>You Have {{user.numberUnseenHelps}} new help from others!</p>
@@ -12,7 +12,7 @@
       </div>
       <div class="col-lg-6">
         <h1 class='text-center'>Welcome {{user.username}}!</h1>
-        <h3 class='text-center'>What Would You Like to Write Today?</h3>
+        <h2 class='text-center'>What Would You Like to Write Today?</h2>
       </div>
     </div>
   </div>
@@ -21,14 +21,19 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6">
-      <h2 class="page-header">Your Outstanding Help Requests</h2>
-      <!--a ng-click="loadHelpRequest(request.id)">{{request.title}}</a>
-      ng-repeat="request in user.helpRequests"<-->
+      <h3 class="page-header">Your Outstanding Help Requests</h3>
+      <ul>
+        <li ng-repeat="request in user.helpRequests"><a ng-click="loadHelpRequest(request.id)">
+        {{request.title}}</a>
+        </li>
+      </ul>
     </div>
     <div class="col-lg-6">
-      <h2 class="page-header">Help Requests from Other Writers</h2>
-      <!--a ng-click="loadAllHelpRequest(request.id")>{{result.title}}</a>
-      ng-repeat="helpRequest in user.allHelpRequest"<-->
+      <h3 class="page-header">Help Requests from Other Writers</h3>
+      <ul>
+        <li ng-repeat="helpRequest in user.helpRequests"><a ng-click="loadAllHelpRequest(request.id)">{{request.title}}</a>
+        </li>
+      <ul>
     </div>
   </div>      
   <div class="row">
@@ -38,18 +43,17 @@
     <div class="col-lg-6 text-center">
       <button class= "btn btn-default btn-lg btn-block"><a href="/allHelpRequest">Contribute</a></button>
     </div>
-  </div>
-</div>
-
-<div class="container">	 
-	<div class="row">
-    <div class="col-lg-6 col-lg-offset-3">
+  </div>	 
+	<div class="row search">
+    <div class="col-lg-6 col-lg-offset-3 text-center">
       <form name="searchForm" ng-submit="search()" novalidate>
-        <label for="string">Search for a Project to Contribute to</label>
+        <label for="string"><h4>Search for a Project to Contribute to</h4></label>
         <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
         <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
       </form>
-    <div class="searchResult" ng-repeat="result in searchResults">
+    </div>
+  </div>
+    <!--div class="searchResult" ng-repeat="result in searchResults">
       <div class="row">
         <a ng-click="loadHelpRequest(result.id)">
           <div class="col-md-4">
@@ -63,7 +67,5 @@
           </div>
         </a>
       </div>
-    </div>
-  </div>
-</div>
+    </div-->
 </div>
