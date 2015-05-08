@@ -16,7 +16,7 @@
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         <div ng-repeat="contribution in helpRequest.contributions">
-        <a><h4>Contribution by {{contribution.helperUsername}}</h4></a>
+        <a ng-click="loadContribution(contribution.id)"><h4>Contribution by {{contribution.helperUsername}}</h4></a>
         </div>
       </div>
     </div>

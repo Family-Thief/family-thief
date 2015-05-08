@@ -5,6 +5,8 @@ angular.module('familyThiefApp')
     var currentUser = {};
     // keeps track of whether a user is about to view a helpRequest
     var helpRequestId;
+    // keeps track of whether a user is about to view a contribution
+    var contributionId;
     if($cookieStore.get('token')) {
       currentUser = User.get();
     }
@@ -154,6 +156,17 @@ angular.module('familyThiefApp')
 
        getHelpRequest: function() {
         return helpRequestId;
+       },
+
+       /**
+       * Set help request to be viewed
+       */
+       setContribution: function(id) {
+         contributionId = id;
+       },
+
+       getContribution: function() {
+         return contributionId;
        }
 
 
