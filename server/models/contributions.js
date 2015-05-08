@@ -7,16 +7,8 @@ var Contribution = db.define('Contribution',
   {
     contributionText: Sequelize.TEXT,
     unseenHelp: Sequelize.BOOLEAN,
-    contributor: {
-      type: Sequelize.INTEGER,
-      references: User,
-      referencesKey: "id"
-    },
-    project: {
-      type: Sequelize.INTEGER,
-      references: Project,
-      referencesKey: "id"
-    }
+    contributor: Sequelize.INTEGER,
+    project: Sequelize.INTEGER
 
   }
 );

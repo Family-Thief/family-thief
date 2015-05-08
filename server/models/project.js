@@ -7,12 +7,7 @@ var Project = db.define('Project',
     title: Sequelize.STRING,
     summary: Sequelize.STRING,
     text: Sequelize.TEXT,
-    // votes: Sequelize.INTEGER,
-    user_id: {
-      type: Sequelize.INTEGER,
-      references: User,
-      referencesKey: "id"
-    }
+    user_id: Sequelize.INTEGER
   }
 );
 

@@ -79,5 +79,10 @@ app.get('/api/contributions/:id', function (req, res){
   helper.viewContribution(req.params.id, res);
 });
 
+//path for searches
+app.get('/api/helpRequests?', function (req, res){
+  helper.searching(req.query.search, res);
+});
+
 app.listen(3000);
 

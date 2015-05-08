@@ -6,6 +6,7 @@ var Contribution = require('./contributions.js');
 var ContributionUpvote = require('./contributionupvotes.js');
 var ContributionComment = require('./contributioncomments.js');
 var ProjectComment = require('./projectcomments.js');
+var associations = require('./associations.js');
 var jwt = require('jsonwebtoken');
 
 module.exports.authenticate = function(username, password, response, secret) {
@@ -67,18 +68,29 @@ module.exports.findAllInfo = function(username, response) {
                     ProjectUpvote.findAndCountAll({where:{projectupvoted: uniqueProjects}}).then(function(projectUpvotes) {
                       //finding and counting all votes for contributions
                       ContributionUpvote.findAndCountAll({where: {contributionupvoted: uniqueContributions}}).then(function(contributionUpvotes) {
-
+                        //finding all the contributions for a user - joint search
+                        Contribution.findAll({where: {contributor: user.id}, include:[User]}).then(function(userContributions) {
+                          var contributionDetails = [];
+                          for (var k = 0 ; k < userContributions.length; k++ ) {
+                            contributionDetails.push({
+                              id: userContributions[k].dataValues.id,
+                              helperUsername: userContributions[0].dataValues.User.dataValues.username,
+                              textSnippet: userContributions[k].dataValues.contributionText,
+                              origDate: userContributions[k].dataValues.createdAt
+                              });
+                          };
                           var profile = {
                             username: user.username,
                             email: user.email,
                             helpRequests: projectsArray,
-                            contributions: contributionsArray,
+                            contributions: contributionDetails,
                             numberUnseenHelps: unseenHelps.count,
                             numberUnseenComments: unseenProjectComments.count + unseenContributionComments.count,
                             votes: projectUpvotes.count + contributionUpvotes.count
                           }
                           console.log("Delivering profile");
                           response.json(profile);
+                        });
                       });
                     });
                 });
@@ -164,7 +176,7 @@ module.exports.viewProject = function(projectId, response) {
 module.exports.makeContribution = function(username, contribution, response) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
-      Contribution.create({contributor: user.id, project: contribution.helpedId, text: contribution.text, unseenHelp: false}).then(function() {
+      Contribution.create({contributor: user.id, project: contribution.helpedId, contributionText: contribution.text, unseenHelp: false}).then(function() {
         response.send(201, "Contribution made");
       });
     } else {
@@ -218,6 +230,32 @@ module.exports.viewContribution = function(contributionId, response) {
       });
     } else {
         console.log("Error while finding contribution");
+    }
+  });
+};
+
+module.exports.searching = function(searchString, response) {
+  Project.findAll({where: ["title LIKE ? or summary LIKE ?", '%' + searchString+ '%', '%' + searchString+ '%'] }).then(function(projects) {
+    if (projects) {
+      var results = [];
+      var projectLength;
+      if (projects.length > 10) {
+        projectLength = 10;
+      } else {
+        projectLength = projects.length;
+      }
+      for (var i = 0; i < projectLength; i ++) {
+        results.push({
+          id: projects[i].dataValues.id,
+          title: projects[i].dataValues.title,
+          summary: projects[i].dataValues.summary,
+          origDate: projects[i].dataValues.createdAt
+        })
+      }
+      console.log("Sending back search results");
+      response.json(results);
+    } else {
+      console.log("No search results");
     }
   });
 };
