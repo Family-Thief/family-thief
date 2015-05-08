@@ -233,3 +233,29 @@ module.exports.viewContribution = function(contributionId, response) {
     }
   });
 };
+
+module.exports.searching = function(searchString, response) {
+  Project.findAll({where: ["title OR summary OR text like ?", "%" + searchString+ "%"]}).then(function(projects) {
+    if (projects) {
+      var results = [];
+      var projectLength;
+      if (projects.length > 10) {
+        projectLength = 10;
+      } else {
+        projectLength = projects.length;
+      }
+      for (var i = 0; i < projectLength; i ++) {
+        results.push({
+          id: projects[i].dataValues.id,
+          title: projects[i].dataValues.title,
+          summary: projects[i].dataValues.summary,
+          origDate: projects[i].dataValues.createdAt
+        })
+      }
+      console.log("Sending back search results");
+      response.json(results);
+    } else {
+      console.log("No search results");
+    }
+  });
+};
