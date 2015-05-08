@@ -7,16 +7,8 @@ var ContributionComment = db.define('ContributionComment',
   {
     comment: Sequelize.STRING,
     unseenComment: Sequelize.BOOLEAN,
-    commenter: {
-      type: Sequelize.INTEGER,
-      references: User,
-      referencesKey: "id"
-    },
-    contributionCommented: {
-      type: Sequelize.INTEGER,
-      references: Contribution,
-      referencesKey: "id"
-    }
+    commenter: Sequelize.INTEGER,
+    contributionCommented: Sequelize.INTEGER
 
   }
 );

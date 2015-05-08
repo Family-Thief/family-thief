@@ -7,16 +7,8 @@ var ProjectComment = db.define('ProjectComment',
   {
     comment: Sequelize.STRING,
     unseenComment: Sequelize.BOOLEAN,
-    commenter: {
-      type: Sequelize.INTEGER,
-      references: User,
-      referencesKey: "id"
-    },
-    projectCommented: {
-      type: Sequelize.INTEGER,
-      references: Project,
-      referencesKey: "id"
-    }
+    commenter: Sequelize.INTEGER,
+    projectCommented: Sequelize.INTEGER
 
   }
 );

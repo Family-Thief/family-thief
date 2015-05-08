@@ -5,16 +5,8 @@ var Contribution = require('./contributions.js');
 
 var ContributionUpvote = db.define('ContributionUpvote',
   {
-    upvoter: {
-      type: Sequelize.INTEGER,
-      references: User,
-      referencesKey: "id"
-    },
-    contributionupvoted: {
-      type: Sequelize.INTEGER,
-      references: Contribution,
-      referencesKey: "id"
-    }
+    upvoter: Sequelize.INTEGER,
+    contributionupvoted: Sequelize.INTEGER
 
   }
 );

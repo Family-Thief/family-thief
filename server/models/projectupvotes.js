@@ -5,16 +5,8 @@ var Project = require('./project.js');
 
 var ProjectUpvote = db.define('ProjectUpvote',
   {
-    upvoter: {
-      type: Sequelize.INTEGER,
-      references: User,
-      referencesKey: "id"
-    },
-    projectupvoted: {
-      type: Sequelize.INTEGER,
-      references: Project,
-      referencesKey: "id"
-    }
+    upvoter: Sequelize.INTEGER,
+    projectupvoted: Sequelize.INTEGER
 
   }
 );

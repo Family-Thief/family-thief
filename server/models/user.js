@@ -32,6 +32,7 @@ var User = db.define('User',
 
 );
 
+
 db.sync();
 
 module.exports = User;
