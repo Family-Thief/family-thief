@@ -185,7 +185,7 @@ module.exports.contributionComment = function(contribution, response) {
   });
 };
 
-module.exports.contributionUpvote = function(userId, contributionId) {
+module.exports.contributionUpvote = function(userId, contributionId, response) {
   ContributionUpvote.create({upvoter: userId, contributionupvoted: contributionId}).then(function() {
       response.send(201, "Contribution upvoted");
     })

@@ -5,6 +5,8 @@ angular.module('familyThiefApp')
     
     // inject data of currently logged-in user into this controller
     $scope.user = Auth.getCurrentUser();
+
+    console.log($scope.user);
     
     $scope.searchResults = [{id: 1, title: "A novel", summary: "just help me", origDate: "May 1st 2015"}];
     //search for a project containing the query strings
@@ -19,9 +21,13 @@ angular.module('familyThiefApp')
     };
     
     $scope.loadHelpRequest = function(id) {
-      console.log(id);
       Auth.setHelpRequest(id);
       $location.path('/help-request');
+    };
+
+    $scope.loadContribution = function(id) {
+      Auth.setContribution(id);  // sets the id of the contribution that the user is about to view
+      $location.path('/contribution');
     };
     
   });
