@@ -235,7 +235,7 @@ module.exports.viewContribution = function(contributionId, response) {
 };
 
 module.exports.searching = function(searchString, response) {
-  Project.findAll({where: ["title OR summary OR text like ?", "%" + searchString+ "%"]}).then(function(projects) {
+  Project.findAll({where: ["title LIKE ? or summary LIKE ?", '%' + searchString+ '%', '%' + searchString+ '%'] }).then(function(projects) {
     if (projects) {
       var results = [];
       var projectLength;
