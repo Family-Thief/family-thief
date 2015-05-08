@@ -1,26 +1,31 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container dashboard">
-  <div class="container">
+<header class="hero-unit" id="banner">
+</header>>
+
+<div class="container dashboard">    
+  <div class="container contrib">  
     <a class="btn btn-default btn-lg" aria-label="Left Align" href="/contributionRecd">
-      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
     </a>
     <p>You Have {{user.numberUnseenHelps}} new help from others!</p>
     <a>You have {{user.numberUnseenComments}} new comments!</a>
-    <h1 class='text-center'>Welcome {{user.username}}! What would you like to write today?</h1>  
+  </div>  
+  <div class="container salutation">
+    <h3 class='text-center'>Welcome {{user.username}}! What would you like to write today?</h3>
   </div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 text-center" >
-        <button><a href="/submission">Submit new help request</a></button> 
-        <div class="helpRequests" ng-repeat="request in user.helpRequests" >
+  <div class="container">
+		  <div class="row">
+			 <div class="col-lg-6 text-center" >
+          <button class= "btn btn-primary btn-lg btn-block"><a href="/submission">Submit new help request</a></button> 
+          <div class="helpRequests" ng-repeat="request in user.helpRequests" >
           <a ng-click="loadHelpRequest(request.id)">{{request.title}}</a>
-        </div>
-			</div>
+          </div>
+			 </div>
 			<div class="col-lg-6 text-center">
-        <button><a href="/allHelpRequest">New contribution</a></button>
-        <div class="contributions" ng-repeat="contribution in user.contributions">
-          {{contribution.title}}
+        <button class= "btn btn-primary btn-lg btn-block"><a href="/allHelpRequest">New contribution</a></button>
+        <div class="allHelpRequest" ng-repeat="helpRequest in allHelpRequest">
+          <a ng-click="loadHelpRequest(request.id)">{{request.title}}</a>
 			 </div>
       </div>
     </div>

@@ -1,50 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container dashboard">
+<div class="container">
   <div class="container">
-    <a class="btn btn-default btn-lg" aria-label="Left Align" href="/contributionRecd">
-      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-    </a>
-    <p>You Have {{user.numberUnseenHelps}} new help from others!</p>
-    <a>You have {{user.numberUnseenComments}} new comments!</a>
-    <h1 class='text-center'>Welcome {{user.username}}! What would you like to write today?</h1>  
-  </div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 text-center" >
-        <button><a href="/submission">Submit new help request</a></button> 
-        <div class="helpRequests" ng-repeat="request in user.helpRequests" >
-          <a ng-click="loadHelpRequest(request.id)">{{request.title}}</a>
-        </div>
-			</div>
-			<div class="col-lg-6 text-center">
-        <button>New contribution</button>
-        <div class="contributions" ng-repeat="contribution in user.contributions">
-          {{contribution.title}}
-			 </div>
-      </div>
-    </div>
-	 <div class="row">
-      <form name="searchForm" ng-submit="search()" novalidate>
-        <label for="string">Search for a project to help</label>
-        <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
-        <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
-      </form>
-      <div class="searchResult" ng-repeat="result in searchResults">
-        <div class="row">
-          <a ng-click="loadHelpRequest(result.id)">
-            <div class="col-md-4">
-              {{result.title}}
-            </div>
-            <div class="col-md-4">
-              {{result.summary}}
-            </div>
-            <div class="col-md-2">
-              {{result.origDate}}
-            </div>
-          </a>
-        </div>
-      </div>
-   </div>
-  </div>
+    <h1 class='text-center'>Outstanding Help Requests</h1>  
+  </div>	
 </div>
