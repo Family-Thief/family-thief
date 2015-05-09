@@ -149,24 +149,28 @@ module.exports.projectUpvote = function(userId, projectId, response) {
 module.exports.viewProject = function(projectId, response) {
   Project.find({where: {id: projectId}}).then(function(project) {
     if(project) {
-      Contribution.findAll({where: {project:projectId}}).then(function(contributions) {
-        var allContributions = [];
-        for (var i = 0; i < contributions.length; i++) {
-          allContributions.push(contributions[i].dataValues);
-        }
-        ProjectUpvote.findAndCountAll({where:{projectupvoted: projectId}}).then(function(projectvotes) {
+      Contribution.findAll({where: {project: projectId}, include:[User]}).then(function(projectContributions) {
+        var contributionDetails = [];
+        for (var k = 0 ; k < projectContributions.length; k++ ) {
+          contributionDetails.push({
+            id: projectContributions[k].dataValues.id,
+            helperUsername: projectContributions[0].dataValues.User.dataValues.username,
+            textSnippet: projectContributions[k].dataValues.contributionText,
+            origDate: projectContributions[k].dataValues.createdAt
+            });
+        };
           var projectDetails = {
             title: project.title,
             summary: project.summary,
             text: project.text,
             votes: projectvotes.count,
-            contributions: allContributions,
+            contributions: contributionDetails,
             origDate: project.createdAt
           };
+          console.log(projectDetails.contributions);
           console.log("Showing project details");
           response.json(projectDetails);
         });
-      })
     } else {
         console.log("Error while finding project");
     }
