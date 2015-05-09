@@ -9,6 +9,11 @@ angular.module('familyThiefApp')
       id: '@id'
     },
     {
-      
+      upvote: {
+        method: 'POST',
+        params: {
+          id: 'votes'
+        }
+      }
     });
   });

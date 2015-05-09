@@ -6,6 +6,7 @@ angular.module('familyThiefApp')
     $scope.helpRequest = {};
     $scope.newContribution = {};
     $scope.helpRequest.id = Auth.getHelpRequest();
+    $scope.hasVoted = false;
 
     // grabs the appropriate helpRequest data based on property stored in Auth service
     $scope.getHelpRequestData = function() {
@@ -24,7 +25,7 @@ angular.module('familyThiefApp')
         text: $scope.newContribution.text
       })
       .success(function(data, status) {
-        console.log(status);
+        console.log(data);
       })
     };
 
@@ -32,6 +33,15 @@ angular.module('familyThiefApp')
       Auth.setContribution(id);  // sets the id of the contribution that the user is about to view
       $location.path('/contribution');
     };
+
+    $scope.upvote = function() {
+      if(!$scope.hasVoted) {
+        HelpRequest.upvote({}, {contributionId: $scope.id}, function(data, status) {
+          $scope.helpRequest.votes += 1;
+          $scope.hasVoted = true;
+        });
+      }
+    }
 
 
     

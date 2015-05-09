@@ -1,7 +1,7 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
   <div class="container contribution-container">
     <div class="row">
-      <h1>{{contribution.contributor}}'s contribution for {{contribution.userHelped}}</h1>
+      <h1>{{contribution.contributor}}'s contribution for {{contribution.userHelped}} - {{contribution.votes}} votes</h1>
       <div class="col-md-6">
         <button class="btn btn-primary" ng-click="upvote()">Upvote contribution</button>
         <h3>Text</h3>
