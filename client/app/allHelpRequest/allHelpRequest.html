@@ -2,13 +2,24 @@
 
 <div class="container">
   <div class="row">
-    <h1>Help Requests from Other Writers</h1>  
+    <h1 class="text-center">Help Requests from Other Writers</h1>  
   </div>
   <div class="row">
-	 <ul>
-    <li ng-repeat="request in user.helpRequests | limitTo: 25"><a ng-click="loadHelpRequest(request.id)">
-        {{request.title}} {{request.votes}}</a>
-    </li>
-    </ul>
+    <div class="col-lg-6">
+      <h3>Title</h3>
+	     <ul ng-repeat="result in resultList | limitTo: 25">
+        <a ng-click="loadHelpRequest(result.id)">{{result.title}}</a>
+      </ul>
+    </div>
+    <div class="col-lg-3">
+      <h3>Votes</h3>
+        <ul ng-repeat="result in resultList | limitTo: 25">
+          <li>{{result.votes}}</li>
+    </div>
+    <div class="col-lg-3">
+      <button type="button" class="btn btn-default btn-md" ng-show="result.title">
+        <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true" ng-click="result.votes++"></span>
+      </button>
+    </div>
   </div>	
 </div>
