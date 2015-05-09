@@ -1,0 +1,14 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="row">
+    <h1>Help Requests from Other Writers</h1>  
+  </div>
+  <div class="row">
+	 <ul>
+    <li ng-repeat="request in user.helpRequests"><a ng-click="loadHelpRequest(request.id)">
+        {{request.title}} {{request.votes}}</a>
+    </li>
+    </ul>
+  </div>	
+</div>

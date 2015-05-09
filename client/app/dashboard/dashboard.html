@@ -1,50 +1,71 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container dashboard">
+<header class="hero-unit" id="banner">
   <div class="container">
-    <a class="btn btn-default btn-lg" aria-label="Left Align" href="/contributionRecd">
-      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-    </a>
-    <p>You Have {{user.numberUnseenHelps}} new help from others!</p>
-    <a>You have {{user.numberUnseenComments}} new comments!</a>
-    <h1 class='text-center'>Welcome {{user.username}}! What would you like to write today?</h1>  
-  </div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 text-center" >
-        <button><a href="/submission">Submit new help request</a></button> 
-        <div class="helpRequests" ng-repeat="request in user.helpRequests" >
-          <a ng-click="loadHelpRequest(request.id)">{{request.title}}</a>
-        </div>
-			</div>
-			<div class="col-lg-6 text-center">
-        <button>New contribution</button>
-        <div class="contributions" ng-repeat="contribution in user.contributions">
-          {{contribution.title}}
-			 </div>
+    <div class="row">
+      <div class="col-lg-3">
+        <a class="btn btn-success btn-lg" aria-label="Left Align" href="/contributionRecd">
+          <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+        </a>
+        <p>You Have {{user.numberUnseenHelps}} new help from others!</p>
+        <a>You have {{user.numberUnseenComments}} new comments!</a>  
+      </div>
+      <div class="col-lg-6">
+        <h1 class='text-center'>Welcome {{user.username}}!</h1>
+        <h2 class='text-center'>What Would You Like to Write Today?</h2>
       </div>
     </div>
-	 <div class="row">
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <h3 class="page-header">Your Outstanding Help Requests</h3>
+      <ul>
+        <li ng-repeat="request in user.helpRequests"><a ng-click="loadHelpRequest(request.id)">
+        {{request.title}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-lg-6">
+      <h3 class="page-header">Help Requests from Other Writers</h3>
+      <ul>
+        <li ng-repeat="helpRequest in user.helpRequests"><a ng-click="loadAllHelpRequest(request.id)">{{request.title}}</a>
+        </li>
+      <ul>
+    </div>
+  </div>      
+  <div class="row">
+    <div class="col-lg-6 text-center">
+      <button class= "btn btn-default btn-lg btn-block"><a href="/submission">Submit new help request</a></button> 
+    </div>
+    <div class="col-lg-6 text-center">
+      <button class= "btn btn-default btn-lg btn-block"><a href="/allHelpRequest">Contribute</a></button>
+    </div>
+  </div>	 
+	<div class="row search">
+    <div class="col-lg-6 col-lg-offset-3 text-center">
       <form name="searchForm" ng-submit="search()" novalidate>
-        <label for="string">Search for a project to help</label>
+        <label for="string"><h4>Search for a Project to Contribute to</h4></label>
         <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
         <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
       </form>
-      <div class="searchResult" ng-repeat="result in searchResults">
-        <div class="row">
-          <a ng-click="loadHelpRequest(result.id)">
-            <div class="col-md-4">
-              {{result.title}}
-            </div>
-            <div class="col-md-4">
-              {{result.summary}}
-            </div>
-            <div class="col-md-2">
-              {{result.origDate}}
-            </div>
-          </a>
-        </div>
-      </div>
-   </div>
+    </div>
   </div>
+    <!--div class="searchResult" ng-repeat="result in searchResults">
+      <div class="row">
+        <a ng-click="loadHelpRequest(result.id)">
+          <div class="col-md-4">
+            {{result.title}}
+          </div>
+          <div class="col-md-4">
+            {{result.summary}}
+          </div>
+          <div class="col-md-2">
+            {{result.origDate}}
+          </div>
+        </a>
+      </div>
+    </div-->
 </div>
