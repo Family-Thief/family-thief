@@ -38,9 +38,12 @@ angular.module('familyThiefApp')
     };
     $scope.upvote = function() {
       if(!$scope.hasVoted) {
-        Contribution.upvote({}, {contributionId: $scope.id}, function(data, status) {
-          $scope.contribution.votes += 1;
-          $scope.hasVoted = true;
+        $http.post("api/contributions/votes", {
+          contributionId: Auth.getContribution()
+        })
+        .success(function(data, status) {
+          //$scope.contribution.votes += 1;
+          $scope.user.votes += 1;
         });
       }
     };
