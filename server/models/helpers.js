@@ -220,16 +220,19 @@ module.exports.viewContribution = function(contributionId, response) {
         Project.find({where: {id: contribution.project}}).then(function(project) {
           User.find({where: {id: contribution.contributor}}).then(function(contributingUser) {
             User.find({where: {id: project.user_id}}).then(function(helpedUser) {
-              var contributionDetails = {
-                text: contribution.contributionText,
-                comments: allContributionComments,
-                date: contribution.createdAt,
-                helpRequestText: project.text,
-                contributor: contributingUser.username,
-                userHelped: helpedUser.username
-              };
-              console.log("Showing contribution details");
-              response.json(contributionDetails);
+              ContributionUpvote.findAndCountAll({where:{contributionupvoted: contributionId}}).then(function(contributionvotes) {
+                var contributionDetails = {
+                  text: contribution.contributionText,
+                  comments: allContributionComments,
+                  date: contribution.createdAt,
+                  helpRequestText: project.text,
+                  contributor: contributingUser.username,
+                  userHelped: helpedUser.username,
+                  votes: contributionvotes.count
+                };
+                console.log("Showing contribution details");
+                response.json(contributionDetails);
+              });
             });
           });
         });
