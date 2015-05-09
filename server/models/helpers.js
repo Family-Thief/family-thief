@@ -159,6 +159,8 @@ module.exports.viewProject = function(projectId, response) {
             origDate: projectContributions[k].dataValues.createdAt
             });
         };
+        ProjectUpvote.findAndCountAll({where:{projectupvoted: projectId}}).then(function(projectvotes) {
+
           var projectDetails = {
             title: project.title,
             summary: project.summary,
@@ -167,10 +169,10 @@ module.exports.viewProject = function(projectId, response) {
             contributions: contributionDetails,
             origDate: project.createdAt
           };
-          console.log(projectDetails.contributions);
           console.log("Showing project details");
           response.json(projectDetails);
         });
+      });
     } else {
         console.log("Error while finding project");
     }
