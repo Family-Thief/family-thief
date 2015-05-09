@@ -6,13 +6,13 @@ angular.module('familyThiefApp')
     // inject data of currently logged-in user into this controller
     $scope.user = Auth.getCurrentUser();
     
-    $scope.searchResults = [{id: 1, title: "A novel", summary: "just help me", origDate: "May 1st 2015"}];
-    //search for a project containing the query strings
+    // $scope.searchResults = [{id: 1, title: "A novel", summary: "just help me", origDate: "May 1st 2015"}];
+    // //search for a project containing the query strings
     $scope.search = function() {
       $http({
-        url: "api/helpRequests",
+        url: "api/helpRequests/:id",
         method: "GET",
-        params: {search: $scope.searchString}
+        /*params: {search: $scope.searchString}*/
       }).success(function(data, status) {
         $scope.searchResults = resultArray;
       });
@@ -25,4 +25,7 @@ angular.module('familyThiefApp')
       $location.path('/help-request');
     };
     
+    $scope.getRecentlySubmitted = function (){
+
+    }
   });
