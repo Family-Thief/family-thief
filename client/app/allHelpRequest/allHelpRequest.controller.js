@@ -3,18 +3,16 @@
 angular.module('familyThiefApp')
   .controller('AllHelpRequestCtrl', function ($scope, $http, Auth, HelpRequest, $location) {
     
-    // inject data of currently logged-in user into this controller
     $scope.user = Auth.getCurrentUser();
     
-    $scope.searchResults = [{id: 1, title: "A novel", summary: "just help me", origDate: "May 1st 2015"}];
-    //search for a project containing the query strings
-    $scope.search = function() {
+    $scope.resultList = [];
+
+    $scope.getRecentlySubmitted = function() {
       $http({
         url: "api/helpRequests",
         method: "GET",
-        params: {search: $scope.searchString}
       }).success(function(data, status) {
-        $scope.searchResults = resultArray;
+        $scope.resultList = data;
       });
     };
     
@@ -25,4 +23,4 @@ angular.module('familyThiefApp')
       $location.path('/help-request');
     };
     
-  });
+    });

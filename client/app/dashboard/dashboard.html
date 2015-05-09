@@ -24,7 +24,7 @@
     <div class="col-lg-6">
       <h3 class="page-header">Your Outstanding Help Requests</h3>
       <ul>
-        <li ng-repeat="request in user.helpRequests"><a ng-click="loadHelpRequest(request.id)">
+        <li ng-repeat="request in user.helpRequests | limitTo: 5"><a ng-click="loadHelpRequest(request.id)">
         {{request.title}}</a>
         </li>
       </ul>
@@ -32,7 +32,7 @@
     <div class="col-lg-6">
       <h3 class="page-header">Help Requests from Other Writers</h3>
       <ul>
-        <li ng-repeat="helpRequest in user.helpRequests"><a ng-click="loadAllHelpRequest(request.id)">{{request.title}}</a>
+        <li ng-repeat="helpRequest in user.helpRequests | limitTo: 5"><a ng-click="loadAllHelpRequest(request.id)">{{request.title}}</a>
         </li>
       <ul>
     </div>
