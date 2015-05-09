@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <h1>Contribution Received</h1>
+        <h1>Response to your Help Request</h1>
         <form name="contributionRecdForm" ng-submit="(contributionRecdForm.$valid)" novalidate>
           <div class="form-group">
             <label for="contributionRecdTitle">{{helpRequest.title}}</label>
@@ -14,21 +14,15 @@
             <p class="form-control" ng-model="helpRequest.summary" id="helpRequestSummary">{{contribution.helpRequestText}}</p>
           </div>
           <div class="form-group">
-            <label for="helpRequestText">Latest Contribution</label>
+            <label for="helpRequestText">Contribution</label>
             <p class="form-control" ng-model="contributions" id="helpRequestText">{{helpRequest.text}}</p>
-          </div>
-          <div class="form-group">
-            <p class="help-block"> Other Contributions</p>
-            <!--label for="helpRequestContributions">Contributions from Others</label-->
-            <ol class="form-control" ng-model="helpRequest.contributions" ng-repeat="contributions in helpRequest.contributions" id="helpRequestContributions">{{helpRequest.contributions}}</ol>
           </div>
           <div class="form-group">
             <label for="helpRequestText">Your Comments</label>
             <textarea rows="8" type="text" class="form-control" ng-model="contributions.text" id="ContributionsText">
             </textarea>
-            <p class="help-block">(paste above)</p>
           </div>
-          <button type="submit" class="btn btn-primary">Add Comments</button>
+          <button type="submit" class="btn btn-primary">Submit Comments</button>
         </form>
       </div>
     </div>
