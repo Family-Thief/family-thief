@@ -134,7 +134,6 @@ module.exports.helpRequest = function(username, project, response) {
           origDate: createdProject.createdAt
         };
         console.log("Passing back token");
-        console.log(projectDetails);
         response.json(projectDetails);
       })
     } else {
@@ -185,8 +184,17 @@ module.exports.viewProject = function(projectId, response) {
 module.exports.makeContribution = function(username, contribution, response) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
-      Contribution.create({contributor: user.id, project: contribution.helpedId, contributionText: contribution.text, unseenHelp: false}).then(function() {
-        response.send(201, "Contribution made");
+      Contribution.create({contributor: user.id, project: contribution.helpedId, contributionText: contribution.text, unseenHelp: false}).then(function(contributionCreated) {
+          Project.find({where: {id: contribution.helpedId}, include:[User]}).then(function(project) {
+          var projectDetails = {
+            id: contributionCreated.id,
+            helpedUsername: user.username,
+            title: project.title,
+            summary: project.summary,
+            origDate: project.createdAt
+          }
+        response.json(projectDetails);
+          });
       });
     } else {
         console.log("Error while making contribution");
