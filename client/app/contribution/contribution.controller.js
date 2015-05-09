@@ -42,7 +42,7 @@ angular.module('familyThiefApp')
           contributionId: Auth.getContribution()
         })
         .success(function(data, status) {
-          //$scope.contribution.votes += 1;
+          $scope.contribution.votes += 1;
           $scope.user.votes += 1;
         });
       }
