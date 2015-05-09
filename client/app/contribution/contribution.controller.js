@@ -10,9 +10,13 @@ angular.module('familyThiefApp')
     $scope.id = Auth.getContribution(); // delete when server is returning the id in getContribution data
     $scope.newCommentText;
     $scope.hasVoted = false;
+    $scope.isOwner = false;
 
     $scope.getContributionData = function() {
       Contribution.get({id: $scope.contribution.id}, function(contribution) {
+        if(contribution.contributor === $scope.user.username) {
+          $scope.isOwner = true;
+        }
         console.log(contribution);
         $scope.contribution = contribution;
       });
