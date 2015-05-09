@@ -126,13 +126,16 @@ module.exports.searchOrMake = function(username, email, password, response, secr
 module.exports.helpRequest = function(username, project, response) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
-      Project.create({title: project.title, summary: project.summary, text: project.text, user_id: user.id}).then(function() {
-        var profile = {
-          username: user.username,
-          email: user.email
+      Project.create({title: project.title, summary: project.summary, text: project.text, user_id: user.id}).then(function(createdProject) {
+        var projectDetails = {
+          id: createdProject.id,
+          title: createdProject.title,
+          summary: createdProject.summary,
+          origDate: createdProject.createdAt
         };
         console.log("Passing back token");
-        response.json(profile);
+        console.log(projectDetails);
+        response.json(projectDetails);
       })
     } else {
         console.log("Error while creating project");
