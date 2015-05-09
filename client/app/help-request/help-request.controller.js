@@ -8,6 +8,8 @@ angular.module('familyThiefApp')
     $scope.helpRequest.id = Auth.getHelpRequest();
     $scope.hasVoted = false;
 
+    console.log($scope.currentUser);
+
     // grabs the appropriate helpRequest data based on property stored in Auth service
     $scope.getHelpRequestData = function() {
       HelpRequest.get({id: $scope.helpRequest.id}, function(helpRequest) {
@@ -36,9 +38,12 @@ angular.module('familyThiefApp')
 
     $scope.upvote = function() {
       if(!$scope.hasVoted) {
-        HelpRequest.upvote({}, {contributionId: $scope.id}, function(data, status) {
+        $http.post("api/helpRequests/votes", {
+          helpRequestId: Auth.getHelpRequest()
+        })
+        .success(function(data, status) {
+          $scope.currentUser.votes += 1;
           $scope.helpRequest.votes += 1;
-          $scope.hasVoted = true;
         });
       }
     }
