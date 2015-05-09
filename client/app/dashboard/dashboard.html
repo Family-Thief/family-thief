@@ -11,7 +11,7 @@
         <a>You have {{user.numberUnseenComments}} new comments!</a>  
       </div>
       <div class="col-lg-6 salutation">
-        <h1 class='text-center'>Welcome {{user.username}}!</h1>
+        <h1 class='text-center'>Welcome {{user.username | capitalize}}!</h1>
         <h2 class='text-center'>What Would You Like to Write Today?</h2>
         <h4>Votes: {{user.votes}}</h4>
       </div>
@@ -24,7 +24,7 @@
     <div class="col-lg-6">
       <h3 class="page-header">Your Outstanding Help Requests</h3>
       <ul>
-        <li ng-repeat="request in user.helpRequests"><a ng-click="loadHelpRequest(request.id)">
+        <li ng-repeat="request in user.helpRequests | limitTo: 5"><a ng-click="loadHelpRequest(request.id)">
         {{request.title}}</a>
         </li>
       </ul>
@@ -32,7 +32,7 @@
     <div class="col-lg-6">
       <h3 class="page-header">Help Requests from Other Writers</h3>
       <ul>
-        <li ng-repeat="helpRequest in user.helpRequests"><a ng-click="loadAllHelpRequest(request.id)">{{request.title}}</a>
+        <li ng-repeat="helpRequest in user.helpRequests | limitTo: 5"><a ng-click="loadAllHelpRequest(request.id)">{{request.title}}</a>
         </li>
       <ul>
     </div>
