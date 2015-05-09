@@ -5,10 +5,10 @@ angular.module('familyThiefApp')
     
     // inject data of currently logged-in user into this controller
     $scope.user = Auth.getCurrentUser();
-
-    console.log($scope.user);
+    // array of search results initially set to empty 
+    $scope.searchResults = [];
+    $scope.searchString;
     
-    $scope.searchResults = [{id: 1, title: "A novel", summary: "just help me", origDate: "May 1st 2015"}];
     //search for a project containing the query strings
     $scope.search = function() {
       $http({
@@ -16,7 +16,8 @@ angular.module('familyThiefApp')
         method: "GET",
         params: {search: $scope.searchString}
       }).success(function(data, status) {
-        $scope.searchResults = resultArray;
+        console.log(data);
+        $scope.searchResults = data;
       });
     };
     

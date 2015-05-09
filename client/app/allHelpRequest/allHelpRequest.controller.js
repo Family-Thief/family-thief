@@ -18,6 +18,7 @@ angular.module('familyThiefApp')
       });
     };
     
+       
     $scope.loadHelpRequest = function(id) {
       console.log(id);
       Auth.setHelpRequest(id);
