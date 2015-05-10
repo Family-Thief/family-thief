@@ -226,7 +226,12 @@ module.exports.viewContribution = function(contributionId, response) {
       ContributionComment.findAll({where: {contributionCommented: contributionId}, include: [User]}).then(function(contributionComments) {
         var allContributionComments = [];
         for (var i = 0; i < contributionComments.length; i++) {
-          allContributionComments.push(contributionComments[i].dataValues);
+          allContributionComments.push({
+            comment: contributionComments[i].dataValues.comment,
+            unseenComment: contributionComments[i].dataValues.unseenComment,
+            commenter: contributionComments[i].dataValues.User.username,
+            origDate: contributionComments[i].dataValues.createdAt
+          });
         }
         console.log(allContributionComments);
         Project.find({where: {id: contribution.project}}).then(function(project) {
