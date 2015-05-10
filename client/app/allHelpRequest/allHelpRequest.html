@@ -7,7 +7,6 @@
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3 text-center">
       <form name="searchForm" ng-submit="search()" novalidate>
-        <label for="string"><h4 class="page-header">Search for a Project to Contribute to</h4></label>
         <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
         <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
       </form> 
