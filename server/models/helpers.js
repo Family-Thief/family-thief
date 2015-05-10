@@ -156,6 +156,7 @@ module.exports.viewProject = function(projectId, response) {
         for (var k = 0 ; k < projectContributions.length; k++ ) {
           contributionDetails.push({
             id: projectContributions[k].dataValues.id,
+            username: project.dataValues.User.dataValues.username,
             helperUsername: projectContributions[0].dataValues.User.dataValues.username,
             textSnippet: projectContributions[k].dataValues.contributionText,
             origDate: projectContributions[k].dataValues.createdAt
@@ -233,7 +234,7 @@ module.exports.viewContribution = function(contributionId, response) {
             User.find({where: {id: project.user_id}}).then(function(helpedUser) {
               ContributionUpvote.findAndCountAll({where:{contributionupvoted: contributionId}}).then(function(contributionvotes) {
                 var contributionDetails = {
-                  text: contribution.contributionText,
+                  contributionText: contribution.contributionText,
                   comments: allContributionComments,
                   date: contribution.createdAt,
                   helpRequestText: project.text,
