@@ -84,10 +84,5 @@ app.get('/api/helpRequests?', function (req, res){
   helper.searching(req.query.search, res);
 });
 
-//path for all help request projects
-app.get('/api/allhelpRequests', function (req, res){
-  helper.getAll(res);
-});
-
 app.listen(3000);
 
