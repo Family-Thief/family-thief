@@ -6,6 +6,20 @@ angular.module('familyThiefApp')
     $scope.user = Auth.getCurrentUser();
     
     $scope.resultList = [];
+    $scope.searchResults = [];
+    $scope.searchString;
+    
+    //search for a project containing the query strings
+    $scope.search = function() {
+      $http({
+        url: "api/helpRequests",
+        method: "GET",
+        params: {search: $scope.searchString}
+      }).success(function(data, status) {
+        console.log(data);
+        $scope.searchResults = data;
+      });
+    };
 
     $scope.getRecentlySubmitted = function() {
       $http({

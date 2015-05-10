@@ -6,7 +6,7 @@
   </div>
   <div class="row">
     <ul>
-        <li ng-repeat="contribution in contributions"><a ng-click="/contributionRecd(contributionID)">
+        <li ng-repeat="contribution in contributions"><a ng-click="loadContribution(contributionID)">
         From: {{contribution.contributor}} -- {{contribution.contributionText}}</a>
         </li>
       </ul>
