@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('familyThiefApp')
-  .controller('SubmissionCtrl', function ($scope, $http, User, HelpRequest) {
-    $scope.getCurrentUser = User.getCurrentUser;
+  .controller('SubmissionCtrl', function ($scope, $http, Auth, HelpRequest) {
+    $scope.currentUser = Auth.getCurrentUser();
 
     $scope.helpRequest = {};
 
@@ -13,7 +13,7 @@ angular.module('familyThiefApp')
           text: $scope.helpRequest.text,
           summary: $scope.helpRequest.summary
         }, function(helpRequest){
-          console.log(helpRequest);
+          $scope.currentUser.helpRequests.push(helpRequest);
         });
       }
     }
