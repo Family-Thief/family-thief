@@ -161,7 +161,6 @@ module.exports.viewProject = function(projectId, response) {
             origDate: projectContributions[k].dataValues.createdAt
             });
         };
-        console.log(contributionDetails);
         ProjectUpvote.findAndCountAll({where:{projectupvoted: projectId}}).then(function(projectvotes) {
 
           var projectDetails = {
