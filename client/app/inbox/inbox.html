@@ -1,0 +1,18 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="row">
+    <h3 class="page-header">Received Contributions</h3>
+  </div>
+  <div class="row">
+    <ul ng-repeat="contribution in contributions">
+        <li ng-if="contribution.unseen"><a ng-click="loadContribution(contributionID)"><strong>
+        From: {{contribution.contributor}} -- {{contribution.contributionText}}</a></strong>
+        </li>
+        <li ng-if="!contribution.unseen"><a ng-click="loadContribution(contributionID)">
+        From: {{contribution.contributor}} -- {{contribution.contributionText}}</a>
+        </li>
+      </ul>
+  </div>
+      
+    
