@@ -172,7 +172,6 @@ module.exports.viewProject = function(projectId, response) {
             origDate: project.createdAt
           };
           console.log("Showing project details");
-          console.log(projectDetails);
           response.json(projectDetails);
         });
       });
