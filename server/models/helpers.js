@@ -149,18 +149,19 @@ module.exports.projectUpvote = function(userId, projectId, response) {
 };
 
 module.exports.viewProject = function(projectId, response) {
-  Project.find({where: {id: projectId}}).then(function(project) {
+  Project.find({where: {id: projectId}, include: [User]}).then(function(project) {
     if(project) {
       Contribution.findAll({where: {project: projectId}, include:[User]}).then(function(projectContributions) {
         var contributionDetails = [];
         for (var k = 0 ; k < projectContributions.length; k++ ) {
           contributionDetails.push({
-            id: projectContributions[k].dataValues.id,
+            id: project.dataValues.User.dataValues.username,
             helperUsername: projectContributions[0].dataValues.User.dataValues.username,
             textSnippet: projectContributions[k].dataValues.contributionText,
             origDate: projectContributions[k].dataValues.createdAt
             });
         };
+        console.log(contributionDetails);
         ProjectUpvote.findAndCountAll({where:{projectupvoted: projectId}}).then(function(projectvotes) {
 
           var projectDetails = {
@@ -233,7 +234,6 @@ module.exports.viewContribution = function(contributionId, response) {
             origDate: contributionComments[i].dataValues.createdAt
           });
         }
-        console.log(allContributionComments);
         Project.find({where: {id: contribution.project}}).then(function(project) {
           User.find({where: {id: contribution.contributor}}).then(function(contributingUser) {
             User.find({where: {id: project.user_id}}).then(function(helpedUser) {
@@ -285,3 +285,19 @@ module.exports.searching = function(searchString, response) {
     }
   });
 };
+
+module.exports.getAll = function(response) {
+  Project.findAll({include: [User]}).then(function(projects) {
+    var allProjects = [];
+    for (var i = 0; i < projects.length; i ++) {
+      allProjects.push({
+        id: projects[i].dataValues.id,
+        title: projects[i].dataValues.title,
+        summary: projects[i].dataValues.summary,
+        origDate: projects[i].dataValues.createdAt,
+        username: projects[i].dataValues.User.dataValues.username
+      })
+    }
+    response.json(allProjects);
+  });
+}
