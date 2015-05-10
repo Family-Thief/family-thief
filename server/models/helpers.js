@@ -186,7 +186,7 @@ module.exports.viewProject = function(projectId, response) {
 module.exports.makeContribution = function(username, contribution, response) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
-      Contribution.create({contributor: user.id, project: contribution.helpedId, contributionText: contribution.text, unseenHelp: false}).then(function(contributionCreated) {
+      Contribution.create({contributor: user.id, project: contribution.helpedId, contributionText: contribution.text, unseenHelp: true}).then(function(contributionCreated) {
           Project.find({where: {id: contribution.helpedId}, include:[User]}).then(function(project) {
           var projectDetails = {
             id: contributionCreated.id,
