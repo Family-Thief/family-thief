@@ -76,7 +76,9 @@ app.post('/api/contributions/votes', function (req, res){
 
 //path for viewing contributions
 app.get('/api/contributions/:id', function (req, res){
-  helper.viewContribution(req.params.id, res);
+  var decoded = jwt.decode(req.headers.authorization.slice(7));
+  console.log("Getting contribution: ", decoded);
+  helper.viewContribution(req.params.id, decoded, res);
 });
 
 //path for searches
