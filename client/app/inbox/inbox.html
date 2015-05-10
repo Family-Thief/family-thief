@@ -5,8 +5,11 @@
     <h3 class="page-header">Received Contributions</h3>
   </div>
   <div class="row">
-    <ul>
-        <li ng-repeat="contribution in contributions"><a ng-click="loadContribution(contributionID)">
+    <ul ng-repeat="contribution in contributions">
+        <li ng-if="contribution.unseen"><a ng-click="loadContribution(contributionID)"><strong>
+        From: {{contribution.contributor}} -- {{contribution.contributionText}}</a></strong>
+        </li>
+        <li ng-if="!contribution.unseen"><a ng-click="loadContribution(contributionID)">
         From: {{contribution.contributor}} -- {{contribution.contributionText}}</a>
         </li>
       </ul>

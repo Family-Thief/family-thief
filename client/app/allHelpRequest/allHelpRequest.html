@@ -26,19 +26,19 @@
     </a>
   </div>
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-6">
       <h4 class="page-header">Title</h4>
       <div class="searchResult" ng-repeat="result in searchResults">
 	     <ul ng-repeat="result in resultList | limitTo: 25">
         <a ng-click="loadHelpRequest(result.id)">{{result.title}}</a>
       </ul>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3">
       <h4 class="page-header">Votes</h3>
         <ul ng-repeat="result in resultList | limitTo: 25">
           <li>{{result.votes}}</li>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3">
       <button type="button" class="btn btn-primary btn-md" ng-show="result.title" ng-click="result.votes++">upvote</button>
       </button>
     </div>
