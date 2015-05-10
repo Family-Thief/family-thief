@@ -186,7 +186,7 @@ module.exports.viewProject = function(projectId, response) {
 module.exports.makeContribution = function(username, contribution, response) {
   User.find({where: {username: username}}).then(function(user) {
     if(user) {
-      Contribution.create({contributor: user.id, project: contribution.helpedId, contributionText: contribution.text, unseenHelp: false}).then(function(contributionCreated) {
+      Contribution.create({contributor: user.id, project: contribution.helpedId, contributionText: contribution.text, unseenHelp: true}).then(function(contributionCreated) {
           Project.find({where: {id: contribution.helpedId}, include:[User]}).then(function(project) {
           var projectDetails = {
             id: contributionCreated.id,
@@ -222,7 +222,7 @@ module.exports.contributionUpvote = function(userId, contributionId, response) {
     })
 };
 
-module.exports.viewContribution = function(contributionId, response) {
+module.exports.viewContribution = function(contributionId, decoded, response) {
   Contribution.find({where: {id: contributionId}}).then(function(contribution) {
     if(contribution) {
       ContributionComment.findAll({where: {contributionCommented: contributionId}, include: [User]}).then(function(contributionComments) {
@@ -249,7 +249,16 @@ module.exports.viewContribution = function(contributionId, response) {
                   votes: contributionvotes.count
                 };
                 console.log("Showing contribution details");
-                response.json(contributionDetails);
+                if (decoded.username === helpedUser.username) {
+                  console.log("Help request owner has seen!");
+                  contribution.update({unseenHelp : false}).then(function(){
+                    response.json(contributionDetails);
+                  });
+
+                } else {
+                  response.json(contributionDetails);
+                }
+
               });
             });
           });
