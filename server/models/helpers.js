@@ -155,7 +155,6 @@ module.exports.viewProject = function(projectId, response) {
         var contributionDetails = [];
         for (var k = 0 ; k < projectContributions.length; k++ ) {
           contributionDetails.push({
-            username: project.dataValues.User.dataValues.username,
             helperUsername: projectContributions[0].dataValues.User.dataValues.username,
             textSnippet: projectContributions[k].dataValues.contributionText,
             origDate: projectContributions[k].dataValues.createdAt
@@ -167,11 +166,13 @@ module.exports.viewProject = function(projectId, response) {
             title: project.title,
             summary: project.summary,
             text: project.text,
+            username: project.dataValues.User.dataValues.username,
             votes: projectvotes.count,
             contributions: contributionDetails,
             origDate: project.createdAt
           };
           console.log("Showing project details");
+          console.log(projectDetails);
           response.json(projectDetails);
         });
       });
