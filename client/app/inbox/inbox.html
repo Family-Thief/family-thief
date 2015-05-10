@@ -2,51 +2,14 @@
 
 <div class="container">
   <div class="row">
-    <h3 class="page-header">Incoming Contributions</h3>
-      <ul>
-        <li ng-repeat="request in user.helpRequests | limitTo: 5"><a ng-click="loadHelpRequest(request.id)">
-        {{request.title}}</a>
+    <h3 class="page-header">Received Contributions</h3>
+  </div>
+  <div class="row">
+    <ul>
+        <li ng-repeat="contribution in contributions"><a ng-click="/contributionRecd(contributionID)">
+        From: {{contribution.contributor}} -- {{contribution.contributionText}}</a>
         </li>
       </ul>
-    </div>
-    <div class="col-lg-6">
-      <h3 class="page-header">Help Requests from Other Writers</h3>
-      <ul>
-        <li ng-repeat="helpRequest in user.helpRequests | limitTo: 5"><a ng-click="loadAllHelpRequest(request.id)">{{request.title}}</a>
-        </li>
-      <ul>
-    </div>
-  </div>      
-  <div class="row">
-    <div class="col-lg-6 text-center">
-      <a class= "btn btn-primary btn-lg btn-block" href="/submission">Submit new help request</a> 
-    </div>
-    <div class="col-lg-6 text-center">
-      <a class= "btn btn-primary btn-lg btn-block" href="/allHelpRequest">Contribute</a>
-    </div>
-  </div>	 
-	<div class="row search">
-    <div class="col-lg-6 col-lg-offset-3 text-center">
-      <form name="searchForm" ng-submit="search()" novalidate>
-        <label for="string"><h4>Search for a Project to Contribute to</h4></label>
-        <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
-        <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
-      </form>
-    </div>
   </div>
-    <div class="searchResult" ng-repeat="result in searchResults">
-      <div class="row">
-        <a ng-click="loadHelpRequest(result.id)">
-          <div class="col-md-4">
-            {{result.title}}
-          </div>
-          <div class="col-md-4">
-            {{result.summary}}
-          </div>
-          <div class="col-md-2">
-            {{result.origDate}}
-          </div>
-        </a>
-      </div>
-    </div
-</div>
+      
+    

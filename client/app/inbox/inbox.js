@@ -4,8 +4,9 @@ angular.module('familyThiefApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('inbox', {
-        url: '/',
+        url: '/inbox',
         templateUrl: 'app/inbox/inbox.html',
-        controller: 'InboxCtrl'
+        controller: 'InboxCtrl',
+        authenticate: true
       });
   });

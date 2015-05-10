@@ -24,3 +24,9 @@ angular.module('familyThiefApp')
     };
     
     });
+
+  //$scope.upvote = function() {
+    //$http({
+      //url: "api/helpRequest/votes",
+      //method: POST,
+  

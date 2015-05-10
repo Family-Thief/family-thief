@@ -5,19 +5,17 @@ angular.module('familyThiefApp')
     
     // inject data of currently logged-in user into this controller
     $scope.user = Auth.getCurrentUser();
-    // array of search results initially set to empty 
-    $scope.searchResults = [];
-    $scope.searchString;
+    // array of results initially set to empty 
+    $scope.contributions = [];
     
-    //search for a project containing the query strings
-    $scope.search = function() {
+    //retrieve from database all objects with contributions to user's help requests
+    $scope.contribution = function() {
       $http({
-        url: "api/helpRequests",
+        url: "api/contributions/:id",
         method: "GET",
-        params: {search: $scope.searchString}
       }).success(function(data, status) {
         console.log(data);
-        $scope.searchResults = data;
+        $scope.contributions.push(data);
       });
     };
     
