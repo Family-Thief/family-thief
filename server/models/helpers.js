@@ -188,7 +188,7 @@ module.exports.makeContribution = function(username, contribution, response) {
           Project.find({where: {id: contribution.helpedId}, include:[User]}).then(function(project) {
           var projectDetails = {
             id: contributionCreated.id,
-            helpedUsername: user.username,
+            helpedUsername: project.dataValues.User.dataValues.username,
             title: project.title,
             summary: project.summary,
             origDate: project.createdAt
@@ -223,11 +223,12 @@ module.exports.contributionUpvote = function(userId, contributionId, response) {
 module.exports.viewContribution = function(contributionId, response) {
   Contribution.find({where: {id: contributionId}}).then(function(contribution) {
     if(contribution) {
-      ContributionComment.findAll({where: {contributionCommented: contributionId}}).then(function(contributionComments) {
+      ContributionComment.findAll({where: {contributionCommented: contributionId}, include: [User]}).then(function(contributionComments) {
         var allContributionComments = [];
         for (var i = 0; i < contributionComments.length; i++) {
           allContributionComments.push(contributionComments[i].dataValues);
         }
+        console.log(allContributionComments);
         Project.find({where: {id: contribution.project}}).then(function(project) {
           User.find({where: {id: contribution.contributor}}).then(function(contributingUser) {
             User.find({where: {id: project.user_id}}).then(function(helpedUser) {
