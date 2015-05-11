@@ -14,16 +14,19 @@ angular.module('familyThiefApp')
         url: "api/mailbox",
         method: "GET",
       }).success(function(data, status) {
-        console.log(data);
         $scope.contributions = data;
       });
     };
     $scope.contribution();
     
     //loads contribution in new view when clicked
-    $scope.loadContribution = function(id) {
+    $scope.loadContribution = function(id, unseen) {
       Auth.setContribution(id);  // sets the id of the contribution that the user is about to view
-      $location.path('/contributionRecd');
+      if(unseen) {
+        // update the data of the current user's session
+        $scope.user.numberUnseenHelps -= 1;
+      }
+      $location.path('/contribution');
     };
     
   });

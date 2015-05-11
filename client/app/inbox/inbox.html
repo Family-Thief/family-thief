@@ -2,17 +2,24 @@
 
 <div class="container">
   <div class="row">
-    <h3 class="page-header">Received Contributions</h3>
+    <h3 class="page-header">Received Contributions (unseen in red)</h3>
   </div>
-  <div class="row">
-    <ul ng-repeat="contribution in contributions">
-        <li ng-if="contribution.unseen"><a ng-click="loadContribution(contributionID)"><strong>
-        From: {{contribution.contributor}} -- {{contribution.contributionText}}</a></strong>
-        </li>
-        <li ng-if="!contribution.unseen"><a ng-click="loadContribution(contributionID)">
-        From: {{contribution.contributor}} -- {{contribution.contributionText}}</a>
-        </li>
-      </ul>
-  </div>
+  <!-- we sort by id here, but it's better to sort by date. but we didn't have the server return a date key for these objects. --> 
+  <a class="mailbox-item" ng-repeat="contribution in contributions | orderBy: '-contributionId'" ng-click="loadContribution(contribution.contributionId, contribution.unseen)">
+    <div class="mailbox-list-item" ng-class="{unseen: contribution.unseen}">
+      <div class="row">
+        <div class="col-md-4 from">
+          From: {{contribution.contributor}}
+        </div>
+        <div class="col-md-4 for">
+          For: {{contribution.title}}
+        </div>
+        <div class="col-md-4 text">
+          {{contribution.contributionText}}
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
       
     
