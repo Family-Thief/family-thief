@@ -5,6 +5,10 @@ angular.module('familyThiefApp')
     $scope.currentUser = Auth.getCurrentUser();
 
     $scope.helpRequest = {};
+    $scope.submissionSuccess = false;
+    $scope.submissionError = false;
+
+
 
     $scope.submitHelpRequest = function(isValid) {
       if(isValid) {
@@ -13,8 +17,13 @@ angular.module('familyThiefApp')
           text: $scope.helpRequest.text,
           summary: $scope.helpRequest.summary
         }, function(helpRequest){
+          $scope.submissionError = false;
+          $scope.submissionSuccess = true;
+          // save help request submission in user's current session
           $scope.currentUser.helpRequests.push(helpRequest);
         });
+      } else {
+        $scope.submissionError = true;
       }
     }
 

@@ -1,0 +1,28 @@
+.contrib-list-item {
+  padding: 5px 5px;
+  margin-bottom: 10px;
+  height: 100px;
+  overflow: hidden;
+  border: 3px solid #47a447;
+  border-radius: 10px;
+}
+
+a.list-item {
+  color: black;
+  display: block;
+}
+
+#hrSummary, #hrText {
+  border: 3px solid #47a447;
+  border-radius: 10px;
+  padding: 10px 10px;
+}
+
+.contrib-list-item:hover {
+  cursor: pointer;
+  background-color: #448BCA;
+}
+
+.contrib-list-item .title {
+  font-size: 18px;
+}
