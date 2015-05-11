@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/family-thief/family-thief.png?label=ready&title=Ready)](https://waffle.io/family-thief/family-thief)
 # InkWell
 
 > A collaborative writing platform
