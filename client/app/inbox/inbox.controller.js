@@ -11,7 +11,7 @@ angular.module('familyThiefApp')
     //retrieve from database all objects with contributions to user's help request(s)
     $scope.contribution = function() {
       $http({
-        url: "api/contributions/:id",
+        url: "api/mailbox",
         method: "GET",
       }).success(function(data, status) {
         console.log(data);
