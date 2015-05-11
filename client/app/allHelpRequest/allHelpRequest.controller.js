@@ -23,13 +23,15 @@ angular.module('familyThiefApp')
 
     $scope.getRecentlySubmitted = function() {
       $http({
-        url: "api/helpRequests",
+        url: "api/allHelpRequests",
         method: "GET",
       }).success(function(data, status) {
+        console.log(data);
         $scope.resultList = data;
       });
     };
     
+    $scope.getRecentlySubmitted();
        
     $scope.loadHelpRequest = function(id) {
       console.log(id);
