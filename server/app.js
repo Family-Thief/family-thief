@@ -90,7 +90,7 @@ app.get('/api/helpRequests?', function (req, res){
 //path for mailbox
 app.get('/api/mailbox', function (req, res){
   var decoded = jwt.decode(req.headers.authorization.slice(7));
-  helper.checkUnseenContributions(decoded.id, res);
+  helper.checkUnseenContributions(decoded.username, res);
 });
 
 //path for all help request projects
