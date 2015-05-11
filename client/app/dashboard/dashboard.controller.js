@@ -9,6 +9,7 @@ angular.module('familyThiefApp')
     $scope.searchResults = [];
     $scope.searchString;
     
+    console.log($scope.user);
     //search for a project containing the query strings
     $scope.search = function() {
       $http({

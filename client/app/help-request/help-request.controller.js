@@ -21,13 +21,28 @@ angular.module('familyThiefApp')
     $scope.getHelpRequestData();
 
     $scope.respondToHelpRequest = function() {
+      var contribText = $scope.newContribution.text;
       $http.post('/api/contributions', {
         helperUsername: $scope.currentUser.username,
         helpedId: Auth.getHelpRequest(),  // returns the id of the currently viewed help request
         text: $scope.newContribution.text
       })
       .success(function(data, status) {
-        console.log(data);
+        // make this new data display in this view
+        $scope.helpRequest.contributions.push({
+          helperUsername: $scope.currentUser.username, // username of contributor
+          id: data.id,
+          textSnippet: contribText,
+          username: $scope.helpRequest.username, // owner of help request
+          origDate: data.origDate
+        });
+        $scope.currentUser.contributions.push({
+          id: data.id,
+          textSnippet: contribText,
+          helperUsername: $scope.currentUser.username,
+          origDate: data.origDate
+        })
+        // make this new data display in the dashboard
       })
     };
 

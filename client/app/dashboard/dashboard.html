@@ -4,11 +4,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-3">
-        <a class="btn btn-success btn-lg" aria-label="Left Align" href="/inbox">
+        <a class="btn btn-success btn-lg" aria-label="Left Align" href="/contributionRecd">
           <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
         </a>
         <p>You Have {{user.numberUnseenHelps}} new help from others!</p>
-        <p>You have {{user.numberUnseenComments}} new comments!</p>  
+        <a>You have {{user.numberUnseenComments}} new comments!</a>  
       </div>
       <div class="col-lg-6 salutation">
         <h1 class='text-center'>Welcome {{user.username}}!</h1>
@@ -24,15 +24,15 @@
     <div class="col-lg-6">
       <h3 class="page-header">Your Outstanding Help Requests</h3>
       <ul>
-        <li ng-repeat="request in user.helpRequests | limitTo: 5"><a ng-click="loadHelpRequest(request.id)">
+        <li ng-repeat="request in user.helpRequests"><a ng-click="loadHelpRequest(request.id)">
         {{request.title}}</a>
         </li>
       </ul>
     </div>
     <div class="col-lg-6">
-      <h3 class="page-header">Help Requests from Other Writers</h3>
+      <h3 class="page-header">Your contributions</h3>
       <ul>
-        <li ng-repeat="helpRequest in user.helpRequests | limitTo: 5"><a ng-click="loadAllHelpRequest(request.id)">{{request.title}}</a>
+        <li ng-repeat="contribution in user.contributions"><a ng-click="loadContribution(contribution.id)">{{contribution.textSnippet}}</a>
         </li>
       <ul>
     </div>
@@ -48,7 +48,7 @@
 	<div class="row search">
     <div class="col-lg-6 col-lg-offset-3 text-center">
       <form name="searchForm" ng-submit="search()" novalidate>
-        <label for="string"><h4 class="page-header">Search for a Project to Contribute to</h4></label>
+        <label for="string"><h4>Search for a Project to Contribute to</h4></label>
         <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
         <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
       </form>
