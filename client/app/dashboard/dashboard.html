@@ -6,11 +6,11 @@
         <h3>Welcome {{user.username}}!</h3>
         <h4>Start writing today...</h4>
       </div>
-      <div ng-show="user.numberUnseenHelps > 0" class="col-sm-6 dash-corner">
+      <div class="col-sm-6 dash-corner">
         <p>You Have {{user.numberUnseenHelps}} new help from others! <a class="btn btn-success btn-lg" aria-label="Left Align" href="/inbox">
           <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
         </a></p>
-        <h4 ng-show="user.votes > 0">You have {{user.votes}} likes for your writing!</h4>
+        <h4>You have {{user.votes}} likes for your writing!</h4>
       </div>
     </div>
 </div>
