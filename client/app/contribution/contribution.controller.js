@@ -27,13 +27,14 @@ angular.module('familyThiefApp')
     $scope.addComment = function(form) {
       if(form.$valid) {
         var comment = {
-          contributionId: $scope.id,
+          origDate: $scope.id,
           commenter: $scope.user.username,
-          text: $scope.newCommentText
+          comment: $scope.newCommentText
         };
-        Contribution.addComment({}, comment, function(data, status) {
-          $scope.contribution.comments.push(comment);
-        });
+        $http.post('api/contributions/comments', comment)
+          .success(function(data, status) {
+            $scope.contribution.comments.push(comment);
+          });
       }
     };
     $scope.upvote = function() {

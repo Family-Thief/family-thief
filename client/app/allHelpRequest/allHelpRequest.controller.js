@@ -32,7 +32,6 @@ angular.module('familyThiefApp')
     $scope.getRecentlySubmitted();
        
     $scope.loadHelpRequest = function(id) {
-      console.log(id);
       Auth.setHelpRequest(id);
       $location.path('/help-request');
     };
