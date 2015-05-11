@@ -1,24 +1,38 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
   <div class="container">
     <div class="row">
-      <h1>Contribute</h1>
+      <h1 ng-show="isOwner === false">Contribute to this project...</h1>
+      <h1 ng-show="isOwner === true">Your Help Request</h1>
       <div class="col-md-6">
         <h1>{{helpRequest.title}}<span> - {{helpRequest.votes}} votes</span></h1>
-        <button class="btn btn-primary" ng-click="upvote()">Upvote contribution</button>
+        <button class="btn btn-primary" ng-show="isOwner === false" ng-click="upvote()">Upvote Help Request</button>
         <h3>Summary</h3>
-        <p ng-model="helpRequest.summary" id="helpRequestSummary">{{helpRequest.summary}}</p>
+        <p ng-model="helpRequest.summary" id="hrSummary">{{helpRequest.summary}}</p>
         <h3>Text</h3>
-        <p ng-model="helpRequest.text" id="helpRequestText">{{helpRequest.text}}</p>
+        <p ng-model="helpRequest.text" id="hrText">{{helpRequest.text}}</p>
       </div>
       <div class="col-md-6"> 
-        <form name="contributionForm" ng-submit="respondToHelpRequest()" novalidate>   
+        <form ng-show="isOwner === false" name="contributionForm" ng-submit="respondToHelpRequest()" novalidate>   
           <label for="newContributionText">Your Contribution</label>
           <textarea rows="8" type="text" class="form-control" name="newContributionText" ng-model="newContribution.text" id="ContributionsText"></textarea>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button><span ng-show="contributionSuccess"> Submission successful</span>
         </form>
-        <div ng-repeat="contribution in helpRequest.contributions">
-        <a ng-click="loadContribution(contribution.id)"><h4>Contribution by {{contribution.helperUsername}}</h4><p>{{contribution.textSnippet}}</p></a>
-        </div>
+        <h2>Contributions</h2>
+          <a class="list-item" ng-repeat="contribution in helpRequest.contributions | orderBy: '-origDate'" ng-click='loadContribution(contribution.id)'> 
+            <div class="contrib-list-item">
+              <div class="row">
+                <div class="col-md-4 author">
+                  Author: {{contribution.helperUsername}}
+                </div>
+                <div class="col-md-4 textSnippet">
+                  {{contribution.textSnippet}}
+                </div>
+                <div class="col-md-4 date">
+                {{contribution.origDate | date:'yyyy-MM-dd'}}
+                </div>
+              </div>
+            </div>
+          </a>
       </div>
     </div>
   </div>

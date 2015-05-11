@@ -7,14 +7,19 @@ angular.module('familyThiefApp')
     $scope.newContribution = {};
     $scope.helpRequest.id = Auth.getHelpRequest();
     $scope.hasVoted = false;
-
-    console.log($scope.currentUser);
+    $scope.contributionSuccess = false;
+  
 
     // grabs the appropriate helpRequest data based on property stored in Auth service
     $scope.getHelpRequestData = function() {
       HelpRequest.get({id: $scope.helpRequest.id}, function(helpRequest) {
-        console.log(helpRequest);
         $scope.helpRequest = helpRequest;
+        // check if current user is owner of this help request and display it differently if so
+        if($scope.currentUser.username === $scope.helpRequest.username) {
+          $scope.isOwner = true;
+        } else {
+          $scope.isOwner = false;
+        }
       });
     }
 
@@ -41,8 +46,8 @@ angular.module('familyThiefApp')
           textSnippet: contribText,
           helperUsername: $scope.currentUser.username,
           origDate: data.origDate
-        })
-        // make this new data display in the dashboard
+        });
+        $scope.contributionSuccess = true;
       })
     };
 
