@@ -32,8 +32,9 @@
   border-radius: 10px;
 }
 
-.dash-list-item a {
+a.list-item {
   color: black;
+  display: block;
 }
 
 .dash-helpRequest .title {
