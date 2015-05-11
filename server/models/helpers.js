@@ -311,3 +311,29 @@ module.exports.getAll = function(response) {
     response.json(allProjects);
   });
 }
+
+module.exports.checkUnseenContributions = function(userId, response) {
+  Project.findAll({where: {user_id: userId}}).then(function(userProjects){
+    var uniqueProjects = [];
+    for (var i = 0; i < userProjects.length; i ++) {
+      var projectId = userProjects[i].dataValues.id;
+      if (uniqueProjects.indexOf(projectId) < 0) {
+        uniqueProjects.push(projectId);
+      }
+    }
+    var contributionDetails = []
+    Contribution.findAll({where: {project: uniqueProjects}, include: [Project, User]}).then(function(projectContributions) {
+      for (var j = 0; j < projectContributions.length; j++) {
+        contributionDetails.push({
+          contributor: projectContributions[j].dataValues.User.dataValues.username,
+          contributionId: projectContributions[j].dataValues.id,
+          contributionText: projectContributions[j].dataValues.contributionText,
+          title: projectContributions[j].dataValues.Project.dataValues.title,
+          unseen: projectContributions[j].dataValues.unseenHelp
+        });
+      }
+    });
+  });
+  console.log(contributionDetails);
+  response.json(contributionDetails);
+}
