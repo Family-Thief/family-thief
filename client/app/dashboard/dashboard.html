@@ -53,27 +53,4 @@
     </div>
   </div>
 </div>      
-	<div class="row search">
-    <div class="col-lg-6 col-lg-offset-3 text-center">
-      <form name="searchForm" ng-submit="search()" novalidate>
-        <label for="string"><h4 class="page-header">Search for a Project to Contribute to</h4></label>
-        <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
-        <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
-      </form>
-    </div>
-  </div>
-    <div class="searchResult" ng-repeat="result in searchResults">
-      <div class="row">
-        <a ng-click="loadHelpRequest(result.id)">
-          <div class="col-md-4">
-            {{result.title}}
-          </div>
-          <div class="col-md-4">
-            {{result.summary}}
-          </div>
-          <div class="col-md-2">
-            {{result.origDate}}
-          </div>
-        </a>
-      </div>
-    </div>
+	
