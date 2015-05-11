@@ -1,4 +1,4 @@
-# Project Name #
+# InkWell #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -16,29 +16,26 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+## Bust up writers block ##
+  > Get help on that piece that you're stuck on. 
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Inkwell is a collaborative writing platform.  It allows you to get help from a community of writers for any project you're on.  With a simple, intuitive interface and the features you need, InkWell has been designed for all kinds of writers to allow for a more enjoyable, frustration-free writing experience.  InkWell is inpsired by collaborative efforts, such as open-source-software, and brings the community driven experience to writing in a way that pushes writing into the new age.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > The problem is as old as writing itsef: writers block.  You're on a roll, but suddenly you're out of ideas and momentum.  Tough luck.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > InkWell provides you an environment to get some helpful suggestions on your writing.  A community of writers can help you move past your creative stopper and get you putting that story to paper once again.  It brings together those that need help with those that are willing to give it, and gives them a platform to share and celebrate these contributions with each other.  Ultimately, the project is the help-requester's, but now that writer has options not previously available.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "We made InkWell to excell writing into the open-source era.  We saw that, as a whole, writing is a solitary effort, though there is no reason to not include the contributions of multiple writers in modern writing.  Imagine a book written by hundereds of writers?  What would that read like?  InkWell is a step in that direction." -Adam Van Antwerp, Scrum Master
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Using InkWell is simple:  Just create a new user and log into the site.  From there, you are free to submit your own projects to get help with (called help-requests), or help other people on their projects and submit contributions.  The interface allows you to search for projects that might be interesting to you, or simply browse through the most recently submitted help requests.  From there the only limit is your creativity!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "Writer's block sucks!  Now, I can get some ideas quickly and keep moving forward with my awesome story, while still maintaining owenership of the direction."  -Roger Harding, amateur author
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Aspiring authors can visit the site to get started, and curious developers can see all of our progress with the project on github, as the entire project is open source.
