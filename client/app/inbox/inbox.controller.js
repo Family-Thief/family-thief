@@ -14,6 +14,7 @@ angular.module('familyThiefApp')
         url: "api/mailbox",
         method: "GET",
       }).success(function(data, status) {
+        console.log(data);
         $scope.contributions = data;
       });
     };
