@@ -59,7 +59,7 @@ module.exports.findAllInfo = function(username, response) {
             }
           }
           //finding and counting all unseenhelprequests
-            Contribution.findAndCountAll({where:{project: uniqueProjects, unseenHelp: false}}).then(function(unseenHelps) {
+            Contribution.findAndCountAll({where:{project: uniqueProjects, unseenHelp: true}}).then(function(unseenHelps) {
               //finding and counting all unseencomments from projects
               ProjectComment.findAndCountAll({where:{projectCommented: uniqueProjects, unseenComment: false}}).then(function(unseenProjectComments) {
                 //finding and counting all unseencomments from contributions
@@ -309,5 +309,32 @@ module.exports.getAll = function(response) {
       })
     }
     response.json(allProjects);
+  });
+}
+
+module.exports.checkUnseenContributions = function(username, response) {
+  User.find({where: {username: username}}).then(function(user) {
+    Project.findAll({where: {user_id: user.dataValues.id}}).then(function(userProjects){
+      var uniqueProjects = [];
+      for (var i = 0; i < userProjects.length; i ++) {
+        var projectId = userProjects[i].dataValues.id;
+        if (uniqueProjects.indexOf(projectId) < 0) {
+          uniqueProjects.push(projectId);
+        }
+      }
+      Contribution.findAll({where: {project: uniqueProjects}, include: [Project, User]}).then(function(projectContributions) {
+        var contributionDetails = [];
+        for (var j = 0; j < projectContributions.length; j++) {
+          contributionDetails.push({
+            contributor: projectContributions[j].dataValues.User.dataValues.username,
+            contributionId: projectContributions[j].dataValues.id,
+            contributionText: projectContributions[j].dataValues.contributionText,
+            title: projectContributions[j].dataValues.Project.dataValues.title,
+            unseen: projectContributions[j].dataValues.unseenHelp
+          });
+        }
+        response.json(contributionDetails);
+      });
+    });
   });
 }

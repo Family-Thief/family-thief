@@ -15,9 +15,10 @@ angular.module('familyThiefApp')
         method: "GET",
       }).success(function(data, status) {
         console.log(data);
-        $scope.contributions.push(data);
+        $scope.contributions = data;
       });
     };
+    $scope.contribution();
     
     //loads contribution in new view when clicked
     $scope.loadContribution = function(id) {

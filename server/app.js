@@ -23,6 +23,7 @@ app.use('/api/helpRequests/', expressJwt({secret: secret}));
 app.use('/api/contributions/', expressJwt({secret: secret}));
 app.use('/api/contributions/comments', expressJwt({secret: secret}));
 app.use('/api/contributions/votes', expressJwt({secret: secret}));
+app.use('/api/mailbox', expressJwt({secret: secret}));
 
 //path for when users are created
 app.post('/api/users', function(req, res){
@@ -84,6 +85,12 @@ app.get('/api/contributions/:id', function (req, res){
 //path for searches
 app.get('/api/helpRequests?', function (req, res){
   helper.searching(req.query.search, res);
+});
+
+//path for mailbox
+app.get('/api/mailbox', function (req, res){
+  var decoded = jwt.decode(req.headers.authorization.slice(7));
+  helper.checkUnseenContributions(decoded.username, res);
 });
 
 //path for all help request projects
