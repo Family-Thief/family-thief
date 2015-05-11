@@ -1,0 +1,24 @@
+.mailbox-list-item {
+  padding: 5px 5px;
+  margin-bottom: 10px;
+  height: 100px;
+  overflow: hidden;
+  border: 3px solid #47a447;
+  border-radius: 10px;
+  width: 70%;
+  margin: 20px auto;
+}
+
+.mailbox-list-item:hover {
+  cursor: pointer;
+  background-color: #448BCA;
+}
+
+a.mailbox-item {
+  color: black;
+  display: block;
+}
+
+.unseen {
+  border-color: red;
+}
