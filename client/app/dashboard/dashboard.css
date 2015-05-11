@@ -2,11 +2,6 @@
 	height: 335px;
 }
 
-.salutation {
-
-	margin-top: 50px;
-}
-
 .search {
 
 	margin-top: 50px;
@@ -20,3 +15,27 @@
 	margin: 25px;
 }
 
+.dash-list-item:hover {
+  cursor: pointer;
+  background-color: #448BCA;
+}
+
+.dash-corner {
+  text-align: right;
+}
+.dash-list-item {
+  padding: 5px 5px;
+  margin-bottom: 10px;
+  height: 100px;
+  overflow: hidden;
+  border: 3px solid #47a447;
+  border-radius: 10px;
+}
+
+.dash-list-item a {
+  color: black;
+}
+
+.dash-helpRequest .title {
+  font-size: 18px;
+}
