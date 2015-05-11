@@ -28,7 +28,7 @@ Once the project moves into development, the press release can be used as a touc
 ## Solution ##
   > InkWell provides you an environment to get some helpful suggestions on your writing.  A community of writers can help you move past your creative stopper and get you putting that story to paper once again.  It brings together those that need help with those that are willing to give it, and gives them a platform to share and celebrate these contributions with each other.  Ultimately, the project is the help-requester's, but now that writer has options not previously available.
 
-## Quote from You ##
+## Our Inspiration ##
   > "We made InkWell to excell writing into the open-source era.  We saw that, as a whole, writing is a solitary effort, though there is no reason to not include the contributions of multiple writers in modern writing.  Imagine a book written by hundereds of writers?  What would that read like?  InkWell is a step in that direction." -Adam Van Antwerp, Scrum Master
 
 ## How to Get Started ##
