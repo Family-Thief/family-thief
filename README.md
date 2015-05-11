@@ -1,4 +1,4 @@
-# Project Name
+# InkWell
 
 > A collaborative writing platform
 
@@ -46,7 +46,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](https://waffle.io/family-thief/family-thief)
+View the project roadmap [here](https://waffle.io/family-thief/family-thief).
 
 
 ## Contributing
