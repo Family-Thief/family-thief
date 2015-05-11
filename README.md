@@ -49,6 +49,10 @@ bower install
 
 View the project roadmap [here](https://waffle.io/family-thief/family-thief).
 
+### Database Schema
+
+![relational schema](http://i.imgur.com/G078ktJ.png "Relational Schema")
+
 
 ## Contributing
 
