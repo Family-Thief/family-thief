@@ -2,44 +2,31 @@
 
 <div class="container">
   <div class="row">
-    <h2 class="page-header">Help Requests from Other Writers</h2> 
+    <h2 class="page-header">Find Writing to Contribute To</h2> 
   </div>
   <div class="row">
     <div class="col-lg-6 col-lg-offset-3 text-center">
+      <a class="btn btn-success btn-md" ng-click="getRecentlySubmitted()">See Recent Help Requests</a>
+      <h2>or</h2>
       <form name="searchForm" ng-submit="search()" novalidate>
         <input type="text" class="form-control" ng-model="searchString" id="string" name="string" required> 
-        <input type="submit" class="btn btn-primary" ng-disabled="searchForm.$invalid">
+        <input type="submit" class="btn btn-primary" value="search" ng-disabled="searchForm.$invalid">
       </form> 
     </div>
   </div>
-  <!--div class="row">
-    <a ng-click="loadHelpRequest(result.id)">
-      <div class="col-md-4">
-        {{result.title}}
-      </div>
-      <div class="col-md-4">
-        {{result.summary}}
-      </div>
-      <div class="col-md-2">
-        {{result.origDate}}
-      </div>
-    </a>
-  </div-->
-  <div class="row">
-    <div class="col-lg-6">
-      <h4 class="page-header">Title</h4>
-	    <ul ng-repeat="result in resultList | limitTo: 25">
-        <a ng-click="loadHelpRequest(result.id)">{{result.title}}</a>
-      </ul>
+  <a class="search-item" ng-repeat="result in resultList | limitTo: 25 | orderBy: '-origDate'" ng-click='loadHelpRequest(result.id)'>
+    <div class="search-list-item">
+        <div class="row">
+          <div class="col-lg-4">
+            <p>{{result.title}}</p>
+          </div>
+          <div class="col-lg-6">
+            <p>{{result.summary}}</p>
+          </div>
+          <div class="col-lg-2">
+            <p>{{result.origDate | date:'yyyy-MM-dd'}}</p>
+          </div>
+        </div>
     </div>
-    <div class="col-lg-3">
-      <h4 class="page-header">Votes</h3>
-        <ul ng-repeat="result in resultList | limitTo: 25">
-          <li>{{result.summary}}</li>
-    </div>
-    <div class="col-lg-3">
-      <button type="button" class="btn btn-primary btn-md" ng-show="result.title" ng-click="">upvote</button>
-      </button>
-    </div>
-  </div>	
-</div>
+  </a>	
+</divb>

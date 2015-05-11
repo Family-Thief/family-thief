@@ -20,36 +20,36 @@
   <div class="row">
     <div class="col-lg-6">
       <h3 class="page-header">Your Outstanding Help Requests <a class= "btn btn-primary btn-lg" href="/submission">Add New</a></h3>
-      <div class="dash-helpRequest dash-list-item" ng-repeat="request in user.helpRequests | orderBy: '-createdAt'">
-        <div class="row">
-        <a ng-click="loadHelpRequest(request.id)">
-          <div class="col-md-4 title">
-            {{request.title}}
+      <a class="list-item" ng-repeat="request in user.helpRequests | orderBy: '-createdAt'" ng-click="loadHelpRequest(request.id)">
+        <div class="dash-helpRequest dash-list-item">
+          <div class="row">
+            <div class="col-md-4 title">
+              {{request.title}}
+            </div>
+            <div class="col-md-4 summary">
+              {{request.summary}}
+            </div>
+            <div class="col-md-4 date">
+              {{request.createdAt | date:'yyyy-MM-dd'}}
+            </div>
           </div>
-          <div class="col-md-4 summary">
-            {{request.summary}}
-          </div>
-          <div class="col-md-4 date">
-            {{request.createdAt | date:'yyyy-MM-dd'}}
-          </div>
-        </a>
         </div>
-      </div>
+       </a>
     </div>
     <div class="col-lg-6">
       <h3 class="page-header">Your contributions <a class= "btn btn-primary btn-lg" href="/allHelpRequest">Contribute</a></h3>
-      <div class="dash-contribution dash-list-item" ng-repeat="contribution in user.contributions | orderBy: '-origDate'">
-        <div class="row">
-        <a ng-click="loadContribution(contribution.id)">
-          <div class="col-md-8 title">
-            {{contribution.textSnippet}}
+      <a class="list-item" ng-repeat="contribution in user.contributions | orderBy: '-origDate'" ng-click='loadContribution(contribution.id)'> 
+        <div class="dash-contribution dash-list-item">
+          <div class="row">
+            <div class="col-md-8 title">
+              {{contribution.textSnippet}}
+            </div>
+            <div class="col-md-4 date">
+              {{contribution.origDate | date:'yyyy-MM-dd'}}
+            </div>
           </div>
-          <div class="col-md-4 date">
-            {{contribution.origDate | date:'yyyy-MM-dd'}}
-          </div>
-        </a>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>      

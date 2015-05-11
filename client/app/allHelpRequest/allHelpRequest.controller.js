@@ -6,7 +6,6 @@ angular.module('familyThiefApp')
     $scope.user = Auth.getCurrentUser();
     
     $scope.resultList = [];
-    $scope.searchResults = [];
     $scope.searchString;
     
     //search for a project containing the query strings
@@ -17,7 +16,7 @@ angular.module('familyThiefApp')
         params: {search: $scope.searchString}
       }).success(function(data, status) {
         console.log(data);
-        $scope.searchResults = data;
+        $scope.resultList = data;
       });
     };
 
@@ -26,7 +25,6 @@ angular.module('familyThiefApp')
         url: "api/allHelpRequests",
         method: "GET",
       }).success(function(data, status) {
-        console.log(data);
         $scope.resultList = data;
       });
     };
@@ -41,8 +39,5 @@ angular.module('familyThiefApp')
     
     });
 
-  //$scope.upvote = function() {
-    //$http({
-      //url: "api/helpRequest/votes",
-      //method: POST,
+
   
