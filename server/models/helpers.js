@@ -157,7 +157,7 @@ module.exports.viewProject = function(projectId, response) {
           contributionDetails.push({
             id: projectContributions[k].dataValues.id,
             username: project.dataValues.User.dataValues.username,
-            helperUsername: projectContributions[0].dataValues.User.dataValues.username,
+            helperUsername: projectContributions[k].dataValues.User.dataValues.username,
             textSnippet: projectContributions[k].dataValues.contributionText,
             origDate: projectContributions[k].dataValues.createdAt
             });
