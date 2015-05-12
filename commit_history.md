@@ -504,3 +504,163 @@ text of contribution displays. But noticed that comments are
 not persisting in the database.
 
 Self-explanatory
+
+
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+
+Documentation for Inkwell Back-End:
+
+2318ef7ab3d924876381e6be5d0ce1da40a9c9f7
+server merge
+
+We were initially using a back-end template but found it very difficult to navigate around, so we decided to scrap the back-end template and start from scratch. This commit shows the beginnings of our server. We chose to use token authentication through jsonwebtoken and express-jwt as the middleware. In order to have access the protected routes, once the user has authenticated, the expressJwt middleware will use our secret token to pass the user a unique token to prove their identity. After authentication, the client will request for the dashboard of that particular user, and therefore pass back that token to the server, which will be located in the request header. In order to decode this token into the respective user details, we use the jwt.decode function.
+
+Our models start off very basic with just the User table and Project table. When the client communicates to the server, we have helper functions that register the user, authenticate the user, or find all the user’s dashboard data.
+
+-------------------------------------------------------------------------------------------------
+
+69dd4717a8a10842e30c4c1df96218dbbd335952 
+changes to directory
+
+Pretty straightforward commit - as we were merging the server files with the client files, we changed the directory to refer to the right files.
+
+-------------------------------------------------------------------------------------------------
+
+d5eb75d3ff216dfef9b375224d040405c7347dc4
+adding posting HR
+
+Here we elaborate on our Project model with more fields that we need. We also finish off the path for submitting a help request (for their writing) and use the helper function helpRequest to create the project in our database.
+
+-------------------------------------------------------------------------------------------------
+
+228ba68e0707ec3bc0c01011a81556602f8dbe9e
+progress with models and allowing submission
+
+Here we organize the code out better to put the User and the Projects model in two separate files. We also elaborate on our helper function to identify the user’s dashboard information using findAllInfo.
+
+-------------------------------------------------------------------------------------------------
+
+83ddf1d30aca86cb2a29934e557e75fb3a0fa440
+Contribution Model
+
+We create the contribution model (this is for when someone contributes to a piece of writing). The relationship between a user and a contribution is one to many. This is defined as a contributor in our model (we will realize later that this code doesn’t actually create associations, just references, which is not what we want). A project is also related to a contribution via a one to many relationship. This is defined project in our model.
+
+-------------------------------------------------------------------------------------------------
+
+4f49841222eb78e4b6223cd97907020cad57b481
+project upvotes model
+
+We create the project upvotes model. Project upvotes have a many to one relationship between users, and also a many to one relationship between projects To understand how our tables look, it may be helpful to refer to our tables diagram.
+
+-------------------------------------------------------------------------------------------------
+
+a3ebf87423fd2460c4d3ef69ae570a0cccb8fe74
+project comments table
+
+We create the project comments model. It has a many to one relationship between the user and also a many to one relationship between the project.
+
+-------------------------------------------------------------------------------------------------
+
+18ed3a705068edaf2a240bfec2f3215b80fc7a66
+contribution upvotes table done
+
+We create the contribution upvotes model. It has a many to one relationship between the user and also a many to one relationship between the contribution.
+
+-------------------------------------------------------------------------------------------------
+
+56f18e62c421a71d783c5cdb4db2a4e3caf836d0
+contribution comments table done
+
+We create the contribution comments model. It has a many to one relationship between the user and also a many to one relationship between the contribution.
+
+-------------------------------------------------------------------------------------------------
+
+091aaaf7378013072ff50caa95080346dd2b1df4
+counting number of unseenHelps
+
+We create the helper function and paths for find all contributions that the user has made, and also the unseen help requests that a user has.
+
+-------------------------------------------------------------------------------------------------
+
+e3527f64bd947e01f22b3b7c1e407e7e24fee0fe
+Finished the dashboard profile
+
+The previous dashboard was not sending the client an object that they were expecting. This could probably be refactored using table joins. The comments in the code describe what each function’s purpose is.
+
+-------------------------------------------------------------------------------------------------
+
+f5bfcf0ce0e414c2fdc4387f6d8227a7dabff2b2
+fixes to creating a user and also project upvoting
+Added the project upvote helper function that upvotes a project
+
+-------------------------------------------------------------------------------------------------
+
+829e8f3fac2de86a99b76dd701fe43e69e8680dc
+route for viewing all project details
+When a user clicks on a project, we want to show them the details associated with that project as well as its corresponding contributions, votes, etc.. Here we complete the viewProject helper function and route for that purpose. Notice that the project id will be within parameters of the search url. Therefore, to obtain the project id, we must look at the params property of the request.
+
+-------------------------------------------------------------------------------------------------
+
+6de093d5d6c7f3a783106d2d7d5a2b10d799e6df
+contribution post done
+
+We add the ability for a user to create a contribution to a project, as well as the route for it.
+
+-------------------------------------------------------------------------------------------------
+
+e749fdfe78e7096d2fb11011d9e5bde3c51bd148
+contribution comment path done
+
+We add the ability for a user to create a contribution comment to a contribution, as well as the route for it.
+
+-------------------------------------------------------------------------------------------------
+
+13ed751d455657b49066132f34f4ea9cb7fce6c6
+votes and contribution view complete
+
+When the user clicks on a contribution, similar to how they click on a project, we want to show them the details of that contribution, the user, the comments, etc. Here we create the helper function and path for it.
+
+-------------------------------------------------------------------------------------------------
+
+86df514025eda8077df5bb98f73554a0aaa68bbb
+Many changes because of associations and table joins
+
+While trying to implement a joined table query to send to the client the expected details of the contribution array, we realized that the error message was that the tables were not associated with each other. The code in the models only references the other tables, without making associations. Therefore, we added an associations document to show the relationships that each model had with each other through which key. The code starting on line 72 searches for the contributions made by the user, but includes the username as a part of the table join. We therefore have access to the username of that particular contribution which is expected on the client side.
+
+-------------------------------------------------------------------------------------------------
+
+bdb10c88cd204885bcab997d4cb1a172dd46056b
+searching database
+0d13d506a27d8e3f787b4ab8f918681f6a599327
+fixed query for database
+
+Here we create the helper function to query the database where a string is contained in the title or summary of the project for when users want to look for a project to contribute to. The syntax was initially not doing what we had expected it to, which was to search in the title and summary for the string being passed through. The string is passed through in the URL query, so will need to find that search string in the query property of the request.
+
+-------------------------------------------------------------------------------------------------
+
+be47a0abd21aba6de5676addc48aedf6d7483913
+fixing viewprojectcontributiondetails
+
+The properties on the contributions array as part of the projectDetails was changed to meet the client’s expectations.
+
+-------------------------------------------------------------------------------------------------
+
+46f5ccb8b312ac3361fcba2e21d68e0038854cc7
+all changes ok
+
+Added a route so that we could get all the help requests in the database and return this to the client in the requested properties.
+
+Also made some small changes to properties in other routes to meet client expectations.
+
+-------------------------------------------------------------------------------------------------
+
+b6b78d2ec3d120b58d9b0159171f2da83d652078
+some client side changes for craig and completed new route for mailbox
+
+Incorporated some changes on the client side to display the Received Contributions page to test back-end functionality.
+
+Added a route to show which contributions made to the user’s projects have already been viewed.
+
+In the dashboard view, unseenhelp counts were counting all helps that were already seen, whereas they should be counting those that were unseen. This fix was done by changing the unseenHelp property to true.
