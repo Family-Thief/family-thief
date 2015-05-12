@@ -25,7 +25,7 @@
 - Install [dependencies](#installing-dependencies).
 - Rename /server/config/dbConfig.example.js to be dbConfig.js
 - Edit dbConfig.js to point to a valid relational database (sequelize supports quite a few, see [this](http://docs.sequelizejs.com/en/latest/docs/getting-started/) page for examples and instructions on configuring the ORM)
-- Rename /server/config/secret.example to secret and replace the content with a new secret string.  Try making it long and not comprised of discenrnable words.
+- Rename /server/config/secret.example to secret and replace the content with a new secret string.  Try making it long and not comprised of discernable words.
 - Start the server from the base directory with `node server\app.js`.
 
 ## Requirements
