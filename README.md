@@ -47,7 +47,8 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](https://waffle.io/family-thief/family-thief).
+View the project roadmap [here](https://waffle.io/family-thief/family-thief).  
+View the project commit history [here](commit_history.md).
 
 ### Database Schema
 
